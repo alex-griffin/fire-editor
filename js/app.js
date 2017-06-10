@@ -45,8 +45,28 @@ function modBlockUpdate(){
 	blocks[current] = blocks[current].replace(blocks[current].substring(36,38),toHex(parseInt($("#lvl")[0].value)))
 	blocks[current] = blocks[current].replace(blocks[current].substring(38,40),toHex(parseInt($("#exp")[0].value)))
 	blocks[current] = blocks[current].replace(blocks[current].substring(42,44),toHex(parseInt($("#boots")[0].value)))
-	//modblock = blocks[current].replace(blocks[current].substring(blocks[current].length - 12, blocks[current].length - 6),$("#hairColor")[0].value.replace('#',''))
-	//skillBlock = blocks[current].substring(blocks[current].length - 152,blocks[current].length - 120)
+	if($("#noChangeSkills").prop("checked") === true){
+
+	} else if($("#allSkills").prop("checked") === true){																			  //"00800c08100000000008000000"
+		blocks[current] = blocks[current].replace(blocks[current].substring(blocks[current].length - 152,blocks[current].length - 126), "feffffffffffffffffffffff7f");
+	} else if($("#allLSkills").prop("checked") === true){
+		blocks[current] = blocks[current].replace(blocks[current].substring(blocks[current].length - 152,blocks[current].length - 126), "FEFFFFFFFFFFBFFFFFFFFF0F78");
+	} else if($("#NoSkills").prop("checked") === true){
+		blocks[current] = blocks[current].replace(blocks[current].substring(blocks[current].length - 152,blocks[current].length - 126), "00000000000000000000000000");
+	}
+	//blocks[current] = blocks[current].replace(blocks[current].substring(blocks[current].length - 12, blocks[current].length - 6),$("#hairColor")[0].value.replace('#',''))
+
+	//boots: !works
+	//lvl: !works
+	//exp: !works
+	//class: !works
+	//s1: !works
+	//s2: !works
+	//s3: !works
+	//s4: !works
+	//s5: !works
+	//lSkills:
+	//hc:
 }
 
 
@@ -55,7 +75,7 @@ function updateFileStr(){
 	modBlock = blocks[current]
 	modBlockUpdate();
 	fileStr = fileStr.replace(modBlock, blocks[current]);
-	console.log("\n" +  blocks[current] + ", " + modBlock)
+	console.log("\n" +  blocks[current])
 	//blocks[current] = modBlock;
 }
 
@@ -75,18 +95,20 @@ function setup(){
 function beginApp(){
 	$("#welcome").hide();
 	$("#app")[0].style.display = "flex";
-
 }
 
 function parseFile(){
+	blocks = [];
 	blocks = fileStr.match(characterRegex);
 	makeList();
 }
 
 function readFile(){
 	var file = $("#input")[0].files[0];
-	with(new FileReader) readAsArrayBuffer(file), onload = function() {
-		for (i in u = new Uint8Array(result)) fileStr += (0 + u[i].toString(16)).slice(-2);
+	with(new FileReader)readAsArrayBuffer(file),onload=function(){
+		for(i in u=new Uint8Array(result))
+			fileStr+=(0+u[i].toString(16)).slice(-2);
+
 	}
 	parseFile();
 }
@@ -109,40 +131,24 @@ function readBlock(n){
 	$("#skill3").val(toDec(blocks[current].substring(110, 112)));
 	$("#skill4").val(toDec(blocks[current].substring(114, 116)));
 	$("#skill5").val(toDec(blocks[current].substring(118, 120)));
-	$("#hairColor")[0].value = "#" + blocks[current].substring(blocks[current].length - 12, blocks[current].length - 6)
+	//$("#hairColor")[0].value = "#" + blocks[current].substring(blocks[current].length - 12, blocks[current].length - 6)
 	skillBlock = blocks[current].substring(blocks[current].length - 152,blocks[current].length - 120)
 }
-
-
 
 function download(filename, text) {
 	$("#download")[0].setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
 	$("#download")[0].setAttribute('download', filename);
 }
-var derp
-function convert(hex){
-	console.log(hex)
-	derp = hex.match(/[0-9A-Fa-f]{2}/g);
-	txt='';
-	for(i = 0; i < derp.length; i++){
-		h = derp[i];
-		code = parseInt(h,16);
-		if(code == "c2"){
-			console.log("here")
-		} else {
-		t = String.fromCharCode(code);
-		}
 
-		if(t != "Â"){
-			txt += t;
-		}
-	}
-	return txt
-}
 function makeFile(){
-	compiledFile = convert(fileStr.replace(/undefined/, ""))
+	y=[];
+	(fileStr.replace('undefined','')+" ").replace(/.{1,2}/g,function(a){
+		y.push(parseInt(a,16))
+	});
+	compiledFile = btoa(String.fromCharCode.apply(!1,new Uint8Array(y)))
+	location="data:application/octet-stream;base64,"+compiledFile
 
-	download("new_saveFile", compiledFile)
+	//download("new_saveFile", compiledFile)
 }
 
 
@@ -154,12 +160,12 @@ $(document).ready(function() {
 	$('#import').click(function(){
 		readFile();
 	});
-	$(document).on( 'click', 'li', function () {
+	$(document).on('click', 'li', function () {
 		readBlock($(this).index());
 	});
 
 	$(document).on("click", '#update',function(){
-		updateFileStr(current);
+		updateFileStr();
 	});
 	$(document).on("click", '#import',function(){
 		beginApp();

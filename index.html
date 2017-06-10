@@ -23,8 +23,9 @@
 	</header>
 	<div id="welcome">
 		<h1>Fire Emblem Awakening Sav Editor</h1>
-		<p>To use this tool you <b>Must</b> decompress your .sav file with <a href="https://github.com/SciresM/FEAST">FEAST</a>. Once you have a decompressed sav file just hit the "Choose File" button in the corner to load your file then press IMPORT! <b>twice</b>.</p>
-		<p>Currently you cannot edit any values (well you can but you won't be able to export them to a new save file.)</p>
+		<p>To use this tool you <b>Must</b> decompress your .sav file with <a href="https://github.com/SciresM/FEAST">FEAST</a>. Once you have a decompressed sav file just hit the "Choose File" button in the corner to load your file then press IMPORT! <b>twice</b> and only twice otherwise some weird shit happens</p>
+		<p>currentally you can edit: lvl, exp, boot number, class, and equiped skills</p>
+		<p>If anything doesn't work press it again. I was really lazy with my code so there are tons of bugs</p>
 	</div>
 	<div id="app">
 		<ul id="unitList"></ul>
@@ -42,10 +43,12 @@
 				<p>Class</p>
 				<select id="classes" name="classes"></select>
 			</div>
+			<!--
 			<div id="hair">
 				<p>Hair Color (hex format)</p>
 				<input maxlength="7" type="text" id="hairColor">
 			</div>
+			 -->
 
 			<div id="lvlExp">
 				<p>LVL/EXP/Boots</p>
@@ -56,10 +59,10 @@
 			<div id="lSkills">
 				<p>Learned Skills</p>
 				<form action="">
-					<input name="skill"id="noChangeSkills" type="radio" checked>No Change<br>
-					<input name="skill"id="allSkills" type="radio">All Skills (even Lunitic+ skills)<br>
-					<input name="skill"id="allLSkills" type="radio">All Learnable Skills (except special dance)<br>
-					<input name="skill"id="NoSkills" type="radio">No skills<br>
+					<input name="skill" id="noChangeSkills" type="radio" checked>No Change<br>
+					<input name="skill" id="allSkills" type="radio">All Skills (even Lunitic+ skills)<br>
+					<input name="skill" id="allLSkills" type="radio">All Learnable Skills (except special dance)<br>
+					<input name="skill" id="NoSkills" type="radio">No skills<br>
 				</form>
 			</div>
 			<button id="update">Save</button>

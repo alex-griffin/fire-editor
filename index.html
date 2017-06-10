@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Fire Editor</title>
+</head>
+<body>
+	<header>
+		<form id="fileUpload">
+			<input id="input" type="file">
+			<a id="import">IMPORT!</a>
+		</form>
+		<nav>
+			<ul>
+				<li><a href="#">Github</a></li>
+				<li><a href="#">GBATemp</a></li>
+			</ul>
+		</nav>
+	</header>
+	<div id="app">
+		<ul id="unitList"></ul>
+		<div id="unitEditor">
+			<h1 id="current">None</h1>
+			<div id="aSkills">
+				<p>Skills (active)</p>
+				<select id="skill1" name="skill1"></select>
+				<select id="skill2" name="skill2"></select>
+				<select id="skill3" name="skill3"></select>
+				<select id="skill4" name="skill4"></select>
+				<select id="skill5" name="skill5"></select>
+			</div>
+			<div id="class">
+				<p>Class</p>
+				<select id="classes" name="classes"></select>
+			</div>
+			<!--
+			<div id="hair">
+				<p>Hair Color (hex format)</p>
+				<input type="text" id="hairColor">
+			</div>
+			 -->
+
+			<div id="lvlExp">
+				<p>LVL/EXP</p>
+				<input type="text" placeholder="LVL" id="lvl">
+				<input type="text" placeholder="EXP" id="exp">
+			</div>
+			<div id="lSkills">
+				<p>Learned Skills</p>
+				<form action="">
+					<input name="skill"id="noChangeSkills" type="radio" checked>No Change<br>
+					<input name="skill"id="allSkills" type="radio">All Skills (even Lunitic+ skills)<br>
+					<input name="skill"id="allLSkills" type="radio">All Learnable Skills (except special dance)<br>
+					<input name="skill"id="NoSkills" type="radio">No skills<br>
+				</form>
+			</div>
+			<button id="update">Save</button>
+		</div>
+	</div>
+	<footer>
+		<a id="download" href="#">Download File</a>
+	</footer>
+	<script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="./js/app.js"></script>
+</body>
+</html>

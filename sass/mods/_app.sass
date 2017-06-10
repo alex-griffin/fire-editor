@@ -1,0 +1,59 @@
+#app
+	height: calc(100vh - 112px)
+	display: flex
+
+	a
+		background-color: $bg
+		color: rgba(white,0.85)
+		padding: 4px 8px
+		border-radius: 2px
+		margin: 16px
+	#unitList
+		width: 200px
+		list-style: none
+		overflow-y: scroll
+		overflow-x: hidden
+		height: 100%
+		li
+			color: rgba(white, 0.85)
+			background-color: transparent
+			padding: 16px
+			cursor: pointer
+			&:hover
+				background-color: rgba(white,0.2)
+footer
+	background-color: $main
+	height: 56px
+	left: 0
+	width: 100%
+	bottom: 0
+	position: absolute
+	display: -webkit-flex
+	display: -ms-flex
+	display: flex
+	align-items: center
+	justify-content: flex-end
+	a
+		margin-right: 16px
+#unitEditor
+	padding: 16px
+	position: relative
+	overflow-y: scroll
+	width: calc(100% - 200px)
+	#current
+		color: rgba(white, 0.85)
+		padding-bottom: 24px
+	>div
+		margin-top: 16px
+		p, form
+			color: rgba(white, 0.85)
+			padding: 8px 0
+		input
+			padding: 8px 4px
+			margin: 4px
+	#update
+		background-color: $main
+		padding: 8px 16px
+		position: absolute
+		bottom: 16px
+		right: 16px

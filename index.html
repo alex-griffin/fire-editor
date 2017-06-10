@@ -16,11 +16,16 @@
 		</form>
 		<nav>
 			<ul>
-				<li><a href="#">Github</a></li>
-				<li><a href="#">GBATemp</a></li>
+				<li><a href="https://github.com/alexMGriffin/fire-editor">Github</a></li>
+				<li><a href="https://gbatemp.net/threads/web-based-fire-emblem-awakening-save-editor.473297/">GBATemp</a></li>
 			</ul>
 		</nav>
 	</header>
+	<div id="welcome">
+		<h1>Fire Emblem Awakening Sav Editor</h1>
+		<p>To use this tool you <b>Must</b> decompress your .sav file with <a href="https://github.com/SciresM/FEAST">FEAST</a>. Once you have a decompressed sav file just hit the "Choose File" button in the corner to load your file then press IMPORT! <b>twice</b>.</p>
+		<p>Currently you cannot edit any values (well you can but you won't be able to export them to a new save file.)</p>
+	</div>
 	<div id="app">
 		<ul id="unitList"></ul>
 		<div id="unitEditor">
@@ -45,9 +50,10 @@
 			 -->
 
 			<div id="lvlExp">
-				<p>LVL/EXP</p>
-				<input type="text" placeholder="LVL" id="lvl">
-				<input type="text" placeholder="EXP" id="exp">
+				<p>LVL/EXP/Boots</p>
+				<input type="text" maxlength="2" placeholder="LVL" id="lvl">
+				<input type="text" maxlength="2" placeholder="EXP" id="exp">
+				<input type="text" maxlength="2" placeholder="boots" id="boots">
 			</div>
 			<div id="lSkills">
 				<p>Learned Skills</p>

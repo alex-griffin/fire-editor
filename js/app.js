@@ -37,6 +37,12 @@ function setup(){
 	}
 }
 
+function beginApp(){
+	$("#welcome").hide();
+	$("#app")[0].style.display = "flex";
+
+}
+
 function parseFile(){
 	blocks = fileStr.match(characterRegex);
 	makeList();
@@ -62,14 +68,14 @@ function readBlock(n){
 	$("#classes").val(toDec(blocks[current].substring(6,8)));
 	$("#lvl")[0].value = toDec(blocks[current].substring(36,38));
 	$("#exp")[0].value = toDec(blocks[current].substring(38,40));
-	$("skill1").val(toDec(blocks[current].substring()));
-	$("skill2").val(toDec(blocks[current].substring()));
-	$("skill3").val(toDec(blocks[current].substring()));
-	$("skill4").val(toDec(blocks[current].substring()));
-	$("skill5").val(toDec(blocks[current].substring()));
+	$("#boots")[0].value = toDec(blocks[current].substring(42,44));
+	$("#skill1").val(toDec(blocks[current].substring(102, 104)));
+	$("#skill2").val(toDec(blocks[current].substring(106, 108)));
+	$("#skill3").val(toDec(blocks[current].substring(110, 112)));
+	$("#skill4").val(toDec(blocks[current].substring(114, 116)));
+	$("#skill5").val(toDec(blocks[current].substring(118, 120)));
 	//$("#hairColor")[0].value = "#" + blocks[current].substring(blocks[current].length - 9, blocks[current].length - 3)
 	skillBlock = blocks[current].substring(blocks[current].length - 152,blocks[current].length - 120)
-	console.log(skillBlock);
 }
 
 $(document).ready(function() {
@@ -86,6 +92,9 @@ $(document).ready(function() {
 
 	$(document).on("click", '#update',function(){
 		updateFileStr(current);
+	});
+	$(document).on("click", '#import',function(){
+		beginApp(current);
 	});
 
 	setup();

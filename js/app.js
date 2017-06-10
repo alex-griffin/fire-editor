@@ -74,7 +74,7 @@ function readBlock(n){
 	$("#skill3").val(toDec(blocks[current].substring(110, 112)));
 	$("#skill4").val(toDec(blocks[current].substring(114, 116)));
 	$("#skill5").val(toDec(blocks[current].substring(118, 120)));
-	//$("#hairColor")[0].value = "#" + blocks[current].substring(blocks[current].length - 9, blocks[current].length - 3)
+	$("#hairColor")[0].value = "#" + blocks[current].substring(blocks[current].length - 12, blocks[current].length - 6)
 	skillBlock = blocks[current].substring(blocks[current].length - 152,blocks[current].length - 120)
 }
 

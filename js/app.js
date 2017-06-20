@@ -6,11 +6,11 @@ var classes = ["Lord M","Lord F","Great Lord M","Great Lord F","Tactician M","Ta
 
 var fileStr;
 var blocks = [];
-var characterRegex = /07..00......................................ffffffff04........04........04........04........04..........00..00..00..00..00.............*?ffff0000000002..................................................................*?00000000......ff(0000|0106)/g;
-var skillBlock = ""
+var characterRegex = /07..00......................................ffffffff04........04........04........04........04..........00..00..00..00..00.............*?ffff0000000002..................................................................*?..............ff(00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff........................ff....|0000|0106|0001|0000..0000)/g
 var modBlock;
 var current = null;
 var compiledFile = "";
+var fileName = "";
 
 
 function toDec(num){
@@ -34,27 +34,33 @@ function toAscii(h) {
     return str;
 }
 
+function replaceBlock(b,e,r){
+	blocks[current] = blocks[current].replace(blocks[current].substring(b,e),r)
+}
+
 function modBlockUpdate(){
 	modBlock = blocks[current];
-	blocks[current] = blocks[current].replace(blocks[current].substring(6,8),toHex(parseInt($("#classes")[0].options[$("#classes")[0].selectedIndex].value)))
-	blocks[current] = blocks[current].replace(blocks[current].substring(102,104),toHex(parseInt($("#skill1")[0].options[$("#skill1")[0].selectedIndex].value)))
-	blocks[current] = blocks[current].replace(blocks[current].substring(106,108),toHex(parseInt($("#skill2")[0].options[$("#skill2")[0].selectedIndex].value)))
-	blocks[current] = blocks[current].replace(blocks[current].substring(110,112),toHex(parseInt($("#skill3")[0].options[$("#skill3")[0].selectedIndex].value)))
-	blocks[current] = blocks[current].replace(blocks[current].substring(114,116),toHex(parseInt($("#skill4")[0].options[$("#skill4")[0].selectedIndex].value)))
-	blocks[current] = blocks[current].replace(blocks[current].substring(118,120),toHex(parseInt($("#skill5")[0].options[$("#skill5")[0].selectedIndex].value)))
-	blocks[current] = blocks[current].replace(blocks[current].substring(36,38),toHex(parseInt($("#lvl")[0].value)))
-	blocks[current] = blocks[current].replace(blocks[current].substring(38,40),toHex(parseInt($("#exp")[0].value)))
-	blocks[current] = blocks[current].replace(blocks[current].substring(42,44),toHex(parseInt($("#boots")[0].value)))
+	replaceBlock(6,8,toHex(parseInt($("#classes")[0].options[$("#classes")[0].selectedIndex].value)))
+	replaceBlock(102,104,toHex(parseInt($("#skill1")[0].options[$("#skill1")[0].selectedIndex].value)))
+	replaceBlock(106,108,toHex(parseInt($("#skill2")[0].options[$("#skill2")[0].selectedIndex].value)))
+	replaceBlock(110,112,toHex(parseInt($("#skill3")[0].options[$("#skill3")[0].selectedIndex].value)))
+	replaceBlock(114,116,toHex(parseInt($("#skill4")[0].options[$("#skill4")[0].selectedIndex].value)))
+	replaceBlock(118,120,toHex(parseInt($("#skill5")[0].options[$("#skill5")[0].selectedIndex].value)))
+	replaceBlock(36,38,toHex(parseInt($("#lvl")[0].value)))
+	replaceBlock(38,40,toHex(parseInt($("#exp")[0].value)))
+	replaceBlock(42,44,toHex(parseInt($("#boots")[0].value)))
+	var bSkillBlock = blocks[current].indexOf("ffff0000000002") + 32;
+	var eSkillBlock = blocks[current].indexOf("ffff0000000002") + 58;
 	if($("#noChangeSkills").prop("checked") === true){
 
-	} else if($("#allSkills").prop("checked") === true){																			  //"00800c08100000000008000000"
-		blocks[current] = blocks[current].replace(blocks[current].substring(blocks[current].length - 152,blocks[current].length - 126), "feffffffffffffffffffffff7f");
+	} else if($("#allSkills").prop("checked") === true){
+		replaceBlock(bSkillBlock,eSkillBlock, "feffffffffffffffffffffff7f")
 	} else if($("#allLSkills").prop("checked") === true){
-		blocks[current] = blocks[current].replace(blocks[current].substring(blocks[current].length - 152,blocks[current].length - 126), "FEFFFFFFFFFFBFFFFFFFFF0F78");
+		replaceBlock(bSkillBlock,eSkillBlock, "FEFFFFFFFFFFBFFFFFFFFF0F78")
 	} else if($("#NoSkills").prop("checked") === true){
-		blocks[current] = blocks[current].replace(blocks[current].substring(blocks[current].length - 152,blocks[current].length - 126), "00000000000000000000000000");
+		replaceBlock(bSkillBlock,eSkillBlock, "00000000000000000000000000")
 	}
-	//blocks[current] = blocks[current].replace(blocks[current].substring(blocks[current].length - 12, blocks[current].length - 6),$("#hairColor")[0].value.replace('#',''))
+	replaceBlock(blocks[current].length - 12, blocks[current].length - 6,$("#hairColor")[0].value.replace('#',''))
 
 	//boots: !works
 	//lvl: !works
@@ -68,8 +74,6 @@ function modBlockUpdate(){
 	//lSkills:
 	//hc:
 }
-
-
 
 function updateFileStr(){
 	modBlock = blocks[current]
@@ -97,6 +101,12 @@ function beginApp(){
 	$("#app")[0].style.display = "flex";
 }
 
+function makeList(){
+	for(var i = 0; i < blocks.length; i++){
+		$("#unitList")[0].innerHTML += ("<li id=\"unit" + i + "\">" + names[toDec(blocks[i].substr(2,2))] + "</li>")
+	}
+}
+
 function parseFile(){
 	blocks = [];
 	blocks = fileStr.match(characterRegex);
@@ -104,19 +114,15 @@ function parseFile(){
 }
 
 function readFile(){
+	fileName = $("#input")[0].value.split(/(\\|\/)/g).pop();
 	var file = $("#input")[0].files[0];
 	with(new FileReader)readAsArrayBuffer(file),onload=function(){
-		for(i in u=new Uint8Array(result))
-			fileStr+=(0+u[i].toString(16)).slice(-2);
+		for(i in u = new Uint8Array(result)){
+			fileStr += toHex(u[i]);
 
+		}
 	}
 	parseFile();
-}
-
-function makeList(){
-	for(var i = 0; i < blocks.length; i++){
-		$("#unitList")[0].innerHTML += ("<li id=\"unit" + i + "\">" + names[toDec(blocks[i].substr(2,2))] + "</li>")
-	}
 }
 
 function readBlock(n){
@@ -131,13 +137,14 @@ function readBlock(n){
 	$("#skill3").val(toDec(blocks[current].substring(110, 112)));
 	$("#skill4").val(toDec(blocks[current].substring(114, 116)));
 	$("#skill5").val(toDec(blocks[current].substring(118, 120)));
-	//$("#hairColor")[0].value = "#" + blocks[current].substring(blocks[current].length - 12, blocks[current].length - 6)
-	skillBlock = blocks[current].substring(blocks[current].length - 152,blocks[current].length - 120)
+	$("#hairColor")[0].value = "#" + blocks[current].substring(blocks[current].length - 12, blocks[current].length - 6)
+	$("#hairColor")[0].style.backgroundColor = $("#hairColor")[0].value;
+	console.log(blocks[current])
 }
 
 function download(filename, text) {
-	$("#download")[0].setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-	$("#download")[0].setAttribute('download', filename);
+	$("#download")[0].setAttribute('href', 'data:application/octet-stream;base64,' + encodeURIComponent(text));
+	$("#download")[0].setAttribute('download', fileName);
 }
 
 function makeFile(){
@@ -146,19 +153,12 @@ function makeFile(){
 		y.push(parseInt(a,16))
 	});
 	compiledFile = btoa(String.fromCharCode.apply(!1,new Uint8Array(y)))
-	location="data:application/octet-stream;base64,"+compiledFile
-
-	//download("new_saveFile", compiledFile)
+	download("new_saveFile", compiledFile)
 }
 
-
 $(document).ready(function() {
-
-	$("#hairColor").change(function(){
-		$("#hairColor")[0].style.backgroundColor = $("#hairColor")[0].value;
-	});
-	$('#import').click(function(){
-		readFile();
+	$("#hairColor").on("change keyup paste click", function(){
+    	$("#hairColor")[0].style.backgroundColor = $("#hairColor")[0].value;
 	});
 	$(document).on('click', 'li', function () {
 		readBlock($(this).index());
@@ -169,6 +169,7 @@ $(document).ready(function() {
 	});
 	$(document).on("click", '#import',function(){
 		beginApp();
+		readFile();
 	});
 	$(document).on("click", "#download", function(){
 		makeFile();

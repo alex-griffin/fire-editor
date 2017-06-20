@@ -50,15 +50,15 @@ function modBlockUpdate(){
 	replaceBlock(38,40,toHex(parseInt($("#exp")[0].value)))
 	replaceBlock(42,44,toHex(parseInt($("#boots")[0].value)))
 	var bSkillBlock = blocks[current].indexOf("ffff0000000002") + 32;
-	var eSkillBlock = blocks[current].indexOf("ffff0000000002") + 58;
+	var eSkillBlock = blocks[current].indexOf("ffff0000000002") + 64;
 	if($("#noChangeSkills").prop("checked") === true){
 
 	} else if($("#allSkills").prop("checked") === true){
-		replaceBlock(bSkillBlock,eSkillBlock, "feffffffffffffffffffffff7f")
+		replaceBlock(bSkillBlock,eSkillBlock, "FEFFFFFFFFFFFFFFFFFFFFFFFFFFFF7F")
 	} else if($("#allLSkills").prop("checked") === true){
-		replaceBlock(bSkillBlock,eSkillBlock, "FEFFFFFFFFFFBFFFFFFFFF0F78")
+		replaceBlock(bSkillBlock,eSkillBlock, "FEFFFFFFFFFFBFFFFFFFFF0F78ffff7f")
 	} else if($("#NoSkills").prop("checked") === true){
-		replaceBlock(bSkillBlock,eSkillBlock, "00000000000000000000000000")
+		replaceBlock(bSkillBlock,eSkillBlock, "00000000000000000000000000ffff7f")
 	}
 	replaceBlock(blocks[current].length - 12, blocks[current].length - 6,$("#hairColor")[0].value.replace('#',''))
 

@@ -34,21 +34,35 @@ function toAscii(h) {
     return str;
 }
 
+
 function replaceBlock(b,e,r){
 	blocks[current] = blocks[current].replace(blocks[current].substring(b,e),r)
 }
 
 function modBlockUpdate(){
 	modBlock = blocks[current];
-	replaceBlock(6,8,toHex(parseInt($("#classes")[0].options[$("#classes")[0].selectedIndex].value)))
-	replaceBlock(102,104,toHex(parseInt($("#skill1")[0].options[$("#skill1")[0].selectedIndex].value)))
-	replaceBlock(106,108,toHex(parseInt($("#skill2")[0].options[$("#skill2")[0].selectedIndex].value)))
-	replaceBlock(110,112,toHex(parseInt($("#skill3")[0].options[$("#skill3")[0].selectedIndex].value)))
-	replaceBlock(114,116,toHex(parseInt($("#skill4")[0].options[$("#skill4")[0].selectedIndex].value)))
-	replaceBlock(118,120,toHex(parseInt($("#skill5")[0].options[$("#skill5")[0].selectedIndex].value)))
-	replaceBlock(36,38,toHex(parseInt($("#lvl")[0].value)))
-	replaceBlock(38,40,toHex(parseInt($("#exp")[0].value)))
-	replaceBlock(42,44,toHex(parseInt($("#boots")[0].value)))
+	replaceBlock(6,8, toHex(parseInt($("#classes")[0].options[$("#classes")[0].selectedIndex].value)))
+	replaceBlock(102,104, toHex(parseInt($("#skill1")[0].options[$("#skill1")[0].selectedIndex].value)))
+	replaceBlock(106,108, toHex(parseInt($("#skill2")[0].options[$("#skill2")[0].selectedIndex].value)))
+	replaceBlock(110,112, toHex(parseInt($("#skill3")[0].options[$("#skill3")[0].selectedIndex].value)))
+	replaceBlock(114,116, toHex(parseInt($("#skill4")[0].options[$("#skill4")[0].selectedIndex].value)))
+	replaceBlock(118,120, toHex(parseInt($("#skill5")[0].options[$("#skill5")[0].selectedIndex].value)))
+	replaceBlock(36,38, toHex(parseInt($("#lvl")[0].value)));
+	replaceBlock(38,40, toHex(parseInt($("#exp")[0].value)));
+	replaceBlock(42,44, toHex(parseInt($("#boots")[0].value)));
+	replaceBlock(20,22, toHex(parseInt($("#hp")[0].value)));
+	replaceBlock(22,24, toHex(parseInt($("#str")[0].value)));
+	replaceBlock(24,26, toHex(parseInt($("#mag")[0].value)));
+	replaceBlock(26,28, toHex(parseInt($("#skl")[0].value)));
+	replaceBlock(28,30, toHex(parseInt($("#spd")[0].value)));
+	replaceBlock(30,32, toHex(parseInt($("#lck")[0].value)));
+	replaceBlock(32,34, toHex(parseInt($("#def")[0].value)));
+	replaceBlock(34,36, toHex(parseInt($("#res")[0].value)));
+
+
+
+
+
 	var bSkillBlock = blocks[current].indexOf("ffff0000000002") + 32 + "ffff0000000002".length;
 	var eSkillBlock = blocks[current].indexOf("ffff0000000002") + 58 + "ffff0000000002".length;
 	if($("#noChangeSkills").prop("checked") === true){
@@ -139,6 +153,14 @@ function readBlock(n){
 	$("#skill5").val(toDec(blocks[current].substring(118, 120)));
 	$("#hairColor")[0].value = "#" + blocks[current].substring(blocks[current].length - 12, blocks[current].length - 6)
 	$("#hairColor")[0].style.backgroundColor = $("#hairColor")[0].value;
+	$("#hp")[0].value  = toDec(blocks[current].substring(20,22));
+	$("#str")[0].value = toDec(blocks[current].substring(22,24));
+	$("#mag")[0].value = toDec(blocks[current].substring(24,26));
+	$("#skl")[0].value = toDec(blocks[current].substring(26,28));
+	$("#spd")[0].value = toDec(blocks[current].substring(28,30));
+	$("#lck")[0].value = toDec(blocks[current].substring(30,32));
+	$("#def")[0].value = toDec(blocks[current].substring(32,34));
+	$("#res")[0].value = toDec(blocks[current].substring(34,36));
 	console.log(blocks[current])
 }
 
@@ -176,6 +198,12 @@ $(document).ready(function() {
 	$(document).on("click", "#download", function(){
 		makeFile();
 	});
+	$(document).on("change", "#stat input", function(){
+		if(parseInt(this.value) > 255 || parseInt(this.value) < 0 || isNaN(this.value)){
+			alert("invalid value, only numbers between 0 and 255");
+			this.value = 0;
+		}
+	})
 	setup();
 
 });

@@ -49,16 +49,16 @@ function modBlockUpdate(){
 	replaceBlock(36,38,toHex(parseInt($("#lvl")[0].value)))
 	replaceBlock(38,40,toHex(parseInt($("#exp")[0].value)))
 	replaceBlock(42,44,toHex(parseInt($("#boots")[0].value)))
-	var bSkillBlock = blocks[current].indexOf("ffff0000000002") + 32;
-	var eSkillBlock = blocks[current].indexOf("ffff0000000002") + 64;
+	var bSkillBlock = blocks[current].indexOf("ffff0000000002") + 32 + "ffff0000000002".length;
+	var eSkillBlock = blocks[current].indexOf("ffff0000000002") + 58 + "ffff0000000002".length;
 	if($("#noChangeSkills").prop("checked") === true){
 
 	} else if($("#allSkills").prop("checked") === true){
-		replaceBlock(bSkillBlock,eSkillBlock, "FEFFFFFFFFFFFFFFFFFFFFFFFFFFFF7F")
+		replaceBlock(bSkillBlock,eSkillBlock, "FEFFFFFFFFFFFFFFFFFFFFFF7F");
 	} else if($("#allLSkills").prop("checked") === true){
-		replaceBlock(bSkillBlock,eSkillBlock, "FEFFFFFFFFFFBFFFFFFFFF0F78ffff7f")
+		replaceBlock(bSkillBlock,eSkillBlock, "FEFFFFFFFFFFBFFFFFFFFF0F78");
 	} else if($("#NoSkills").prop("checked") === true){
-		replaceBlock(bSkillBlock,eSkillBlock, "00000000000000000000000000ffff7f")
+		replaceBlock(bSkillBlock,eSkillBlock, "00000000000000000000000000");
 	}
 	replaceBlock(blocks[current].length - 12, blocks[current].length - 6,$("#hairColor")[0].value.replace('#',''))
 
@@ -71,8 +71,8 @@ function modBlockUpdate(){
 	//s3: !works
 	//s4: !works
 	//s5: !works
-	//lSkills:
-	//hc:
+	//lSkills: ~kinda
+	//hc: !works
 }
 
 function updateFileStr(){
@@ -160,6 +160,8 @@ $(document).ready(function() {
 	$("#hairColor").on("change keyup paste click", function(){
     	$("#hairColor")[0].style.backgroundColor = $("#hairColor")[0].value;
 	});
+
+	//fix this you stupid fucking idiot
 	$(document).on('click', 'li', function () {
 		readBlock($(this).index());
 	});

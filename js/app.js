@@ -4,6 +4,10 @@ var skills = ["None","HP +5","Strength +2","Magic +2","Skill +2","Speed +2","Def
 
 var classes = ["Lord M","Lord F","Great Lord M","Great Lord F","Tactician M","Tactician F","Grandmaster M","Grandmaster F","Cavalier M","Cavalier F","Knight M","Knight F","Paladin M","Paladin F","Great Knight M","Great Knight F","General M","General F","Barbarian","Fighter","Mercenary M","Mercenary F","Archer M","Archer F","Berserker","Warrior","Hero M","Hero F","Bow Knight M","Bow Knight F","Sniper M","Sniper F","Myrmidon M","Myrmidon F","Thief M","Thief F","Swordmaster M","Swordmaster F","Assassin M","Assassin F","Trickster M","Trickster F","Pegasus Knight","Falcon Knight","Dark Flier","Wyvern Rider M","Wyvern Rider F","Wyvern Lord M","Wyvern Lord F","Griffon Rider M","Griffon Rider F","Troubadour","Priest","Cleric","Mage M","Mage F","Dark Mage M","Dark Mage F","Valkyrie","War Monk","War Cleric","Sage M","Sage F","Dark Knight M","Dark Knight F","Sorcerer M","Sorcerer F","Dancer","Manakete","Taguel M","Taguel F","Soldier","Villager","Mercheant","Reverant","Entombed","Conqueror","Lodestar","Grima","Mirage","Dread Fighter","Bride"]
 
+var items = ["Bronze Sword", "Iron Sword", "Steel Sword", "Silver Sword", "Brave Sword", "Armor Slayer", "Wyrmslayer", "Killing Edge", "Levin Sword", "Rapier", "Noble Rapier", "Missletainn", "Sol", "Amatsu", "Falchion", "Exalted Falchion", "Parallel Falchion", "Mercurius", "Tyrfing", "Mystletainn", "Balmung", "Sol Katti", "Ragnell", "Ragnell Inf Durability", "Tree Branch", "Soothing Sword", "Glass Sword", "Superior Edge", "Eliwoods Blade", "Roys Blade", "Alms Blade", "Leifs Blade", "Eirikas Blade", "Seliphs Blade", "Bronze Lance", "Iron Lance", "Steel Lance", "Silver Lance", "Brave Lance", "Javelin", "Short Spear", "Spear", "Beast Killer", "Blessed Lance", "Killer Lance", "Luna", "Gradivus", "Gungnir", "Gae Bolg", "Log", "Miniature Lance", "Shockstick", "Glass Lance", "Superior Lance", "Sigurds Lance", "Ephraims Lance", "Finns Lance", "Bronze Axe", "Iron Axe", "Steel Axe", "Silver Sxe", "Brave Axe", "Hand Axe", "Short Axe", "Tomahawk", "Hammer", "Bolt Axe", "Killer Axe", "Vengance", "Wolf Berg", "Hauteclare", "Helswath", "Armads", "Ladle", "Imposing Axe", "Volant Axe", "Glass Axe", "Superior Axe", "Titanias Axe", "Orsins Hatchet", "Hectors Axe", "Bronze Bow", "Iron Bow", "Steel Bow", "Silver Bow", "Brave Bow", "Blessed Bow", "Killer Bow", "Long Bow", "Astra", "Parthia", "Yewfelle", "Nidhogg", "Double Bow", "Slack Bow", "Towering Bow", "Underdog Bow", "Glass Bow", "Superior Bow", "Wolts Bow", "Innes Bow", "Fire", "Elfire", "Arcfire", "Bolganone", "Valflame", "Thunder", "Elthunder", "Arcthunder", "Thoron", "Mjollnir", "Wind", "Elwind", "Arcwind", "Rexcalibur", "Forseti", "Excalibur", "Book of Naga", "Flux", "Nosferatu", "Ruin", "Waste", "Goetia", "Grimas Truth", "Mire", "Dying Blaze", "Micaiahs Pyre", "Superior Jolt", "Katarinas Bolt", "Wilderwind", "Celias Gale", "Aversas Night", "Heal", "Mend", "Physic", "Recover", "Fortify", "Goddess Staff", "Rescue", "Ward", "Hammerne", "Kneader", "Balmwood Staff", "Catharsis", "Dragonstone", "Dragonstone plus", "Beaststone", "Beaststone plus", "Blighted Claws", "Blighted Talons", "Expiration", "Vulnerary", "Concoction", "Elixer", "Pure Water", "HP Tonic", "Strength Tonic", "Magic Tonic", "Skill Tonic", "Speed Tonic", "Luck Tonic", "Defense Tonic", "Resistance Tonic", "Door Key", "Chest Key", "Master Key", "Seraph Robe", "Energy Drop", "Sprit Dist", "Secret Book", "Speedwing", "Goddess Icon", "Dracoshield", "Talisman", "Nagas Tear", "Boots", "Arms Scroll", "Master Seal", "Second Seal", "Bullion S", "Bullion M", "Bullion L", "Sweet Tincture", "Gaius Confect", "Kris Confect", "Tikis Tear", "Seed of Trust", "Reeking Box", "Rift Door", "Supreme Emblem", "All Stats plus 2", "Paragon", "Iotes Shield", "Limit Breaker", "Silver Card", "Dread Scroll", "Wedding Bouquet", "1000 Gold", "3000 Gold", "5000 Gold", "7000 Gold"]
+
+
+
 var fileStr;
 var blocks = [];
 var characterRegex = /07..00......................................ffffffff04........04........04........04........04..........00..00..00..00..00.............*?ffff0000000002..................................................................*?..............ff(00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff........................ff....|0000|0106|0001|0000..0000)/g
@@ -34,7 +38,6 @@ function toAscii(h) {
     return str;
 }
 
-
 function replaceBlock(b,e,r){
 	blocks[current] = blocks[current].replace(blocks[current].substring(b,e),r)
 }
@@ -58,11 +61,6 @@ function modBlockUpdate(){
 	replaceBlock(30,32, toHex(parseInt($("#lck")[0].value)));
 	replaceBlock(32,34, toHex(parseInt($("#def")[0].value)));
 	replaceBlock(34,36, toHex(parseInt($("#res")[0].value)));
-
-
-
-
-
 	var bSkillBlock = blocks[current].indexOf("ffff0000000002") + 32 + "ffff0000000002".length;
 	var eSkillBlock = blocks[current].indexOf("ffff0000000002") + 58 + "ffff0000000002".length;
 	if($("#noChangeSkills").prop("checked") === true){
@@ -75,21 +73,9 @@ function modBlockUpdate(){
 		replaceBlock(bSkillBlock,eSkillBlock, "00000000000000000000000000");
 	}
 	replaceBlock(blocks[current].length - 12, blocks[current].length - 6,$("#hairColor")[0].value.replace('#',''))
-
-	//boots: !works
-	//lvl: !works
-	//exp: !works
-	//class: !works
-	//s1: !works
-	//s2: !works
-	//s3: !works
-	//s4: !works
-	//s5: !works
-	//lSkills: ~kinda
-	//hc: !works
 }
 
-function updateFileStr(){
+function updateFileStrUnit(){
 	modBlock = blocks[current]
 	modBlockUpdate();
 	fileStr = fileStr.replace(modBlock, blocks[current]);
@@ -108,11 +94,15 @@ function setup(){
 		var c = '<option value="' + j + '">' + classes[j] + '</option>';
 		$("#classes")[0].innerHTML += c;
 	}
+	for(var i = 0; i < items.length; i++){
+		var c = "<div class=\"item\" id=" + items[i].replace(/ /g, "") + "><p>" + items[i] + "</p><input type=\"text\"></div>"
+		$("#convoy")[0].innerHTML += c;
+	}
 }
 
 function beginApp(){
 	$("#welcome").hide();
-	$("#app")[0].style.display = "flex";
+	$("#app").show();
 }
 
 function makeList(){
@@ -164,6 +154,19 @@ function readBlock(n){
 	console.log(blocks[current])
 }
 
+function updateFileStrConvoy(){
+	var t = "";
+	var index = fileStr.indexOf("4e415254046001") + "4e415254046001".length + 4;
+	for(var i = 0; i < items.length; i++){
+		var temp = toHex(parseInt($("#" + items[i].replace(/ /g, "") + " input")[0].value), 4);
+		var trueVal = temp.substring(2,4) + temp.substring(0,2);
+		t += trueVal;
+	}
+
+	fileStr = fileStr.replace(fileStr.substring(index, index + t.length), t)
+	console.log((fileStr.substring(index, index + t.length)))
+}
+
 function download(filename, text) {
 	$("#download")[0].setAttribute('href', 'data:application/octet-stream;base64,' + encodeURIComponent(text));
 	$("#download")[0].setAttribute('download', fileName);
@@ -178,18 +181,32 @@ function makeFile(){
 	download("new_saveFile", compiledFile)
 }
 
+function readConvoy(){
+	var index = fileStr.indexOf("4e415254046001") + "4e415254046001".length + 4;
+	var t = "";
+	for(var i = 0; i < items.length; i++){
+		var temp = fileStr.substring(index + i * 4, index + i * 4 + 4);
+		var trueVal = temp.substring(2, 4) + temp.substring(0, 2);
+		$("#" + items[i].replace(/ /g, "") + " input")[0].value = toDec(trueVal);
+		t+=trueVal;
+	}
+	console.log(t)
+}
+
 $(document).ready(function() {
 	$("#hairColor").on("change keyup paste click", function(){
     	$("#hairColor")[0].style.backgroundColor = $("#hairColor")[0].value;
 	});
 
-	//fix this you stupid fucking idiot
-	$(document).on('click', 'li', function () {
+	$(document).on('click', '#unitList li', function () {
 		readBlock($(this).index());
 	});
 
-	$(document).on("click", '#update',function(){
-		updateFileStr();
+	$(document).on("click", '#updateUnit',function(){
+		updateFileStrUnit();
+	});
+	$(document).on("click", '#updateConvoy',function(){
+		updateFileStrConvoy();
 	});
 	$(document).on("click", '#import',function(){
 		beginApp();
@@ -203,7 +220,21 @@ $(document).ready(function() {
 			alert("invalid value, only numbers between 0 and 255");
 			this.value = 0;
 		}
+	});
+	$(document).on("change", "#all", function(){
+		for(var i = 0; i < items.length; i++){
+			$("#" + items[i].replace(/ /g, "") + " input")[0].value = $("#all")[0].value;
+		}
 	})
+	$(document).on("click", "#UnitEditor", function(){
+		$("#units").show();
+		$("#convoy").hide();
+	});
+	$(document).on("click", "#ConvoyEditor", function(){
+		$("#units").hide();
+		$("#convoy").show();
+		readConvoy();
+	});
 	setup();
 
 });

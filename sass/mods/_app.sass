@@ -8,6 +8,8 @@
 		padding: 4px 8px
 		border-radius: 2px
 		margin: 16px
+	#units
+		display: flex
 	#unitList
 		width: 200px
 		list-style: none
@@ -49,8 +51,26 @@ footer
 	display: -ms-flex
 	display: flex
 	align-items: center
-	justify-content: flex-end
+	justify-content: space-between
+	ul
+		list-style: none
+		height: 100%
+		margin-left: 16px
+		li
+			background: transparent
+			height: 100%
+			padding: 8px
+			cursor: pointer
+			display: inline-flex
+			align-items: center
+			&:hover
+				background-color: rgba($bg,0.2)
 	a
+		background-color: $bg
+		border-radius: 3px
+		padding: 8px 16px
+		color: rgba(white, 0.85)
+		cursor: pointer
 		margin-right: 16px
 #unitEditor
 	padding: 16px
@@ -68,9 +88,42 @@ footer
 		input
 			padding: 8px 4px
 			margin: 4px
-	#update
+	#updateUnit
 		background-color: $main
 		padding: 8px 16px
 		position: fixed
 		bottom: 72px
 		right: 16px
+
+
+#convoy
+	padding: 16px
+	position: relative
+	overflow-y: scroll
+	height: 100%
+	display: flex
+	flex-direction: column
+	#updateConvoy
+		background-color: $main
+		padding: 8px 16px
+		position: fixed
+		bottom: 72px
+		right: 16px
+	>p, h1
+		color: rgba(white, 0.85)
+		padding: 2px 4px
+	>p
+		margin-bottom: 12px
+
+	h1
+		font-size: 32px
+	.item
+		margin: 2px 16px
+		p
+			color: rgba(white, 0.85)
+			display: inline-block
+			padding: 2px 4px
+			width: 200px
+		input
+			display: inline-block
+			padding: 8px 4px

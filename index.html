@@ -28,62 +28,74 @@
 		 Once you have a decompressed save file just hit the "Choose File"
 		  button in the corner to load your file then press IMPORT!
 		  <b>twice</b> and only twice otherwise some weird shit happens</p>
-		<p>currentally you can edit: lvl, exp, boot number, class, hair color(Lucina and parent units do nothing), all stats, active skills and equiped skills</p>
+		  <p>currentally you can edit: lvl, exp, boot number, class, hair color(Lucina and parent units do nothing), all stats, convoy active skills, and equiped skills</p>
 		<p>If anything doesn't work press it again. I was really lazy with my code so there are tons of bugs</p>
 	</div>
 	<div id="app">
-		<ul id="unitList"></ul>
-		<div id="unitEditor">
-			<h1 id="current">None</h1>
-			<div id="aSkills">
-				<p>Skills (active)</p>
-				<select id="skill1" name="skill1"></select>
-				<select id="skill2" name="skill2"></select>
-				<select id="skill3" name="skill3"></select>
-				<select id="skill4" name="skill4"></select>
-				<select id="skill5" name="skill5"></select>
-			</div>
-			<div id="statWrap">
-					<p>stats (99 for max, 255 does weird things)</p>
-				<div id="stats">
-					<div id="stat"><span>HP</span><input type="text" value="0" maxlength = "3" id="hp"></div>
-					<div id="stat"><span>STR</span><input type="text" value="0" maxlength = "3" id="str"></div>
-					<div id="stat"><span>MAG</span><input type="text" value="0" maxlength = "3" id="mag"></div>
-					<div id="stat"><span>SKL</span><input type="text" value="0" maxlength = "3" id="skl"></div>
-					<div id="stat"><span>SPD</span><input type="text" value="0" maxlength = "3" id="spd"></div>
-					<div id="stat"><span>LCK</span><input type="text" value="0" maxlength = "3" id="lck"></div>
-					<div id="stat"><span>DEF</span><input type="text" value="0" maxlength = "3" id="def"></div>
-					<div id="stat"><span>RES</span><input type="text" value="0" maxlength = "3" id="res"></div>
+		<section id="units">
+			<ul id="unitList"></ul>
+			<div id="unitEditor">
+				<h1 id="current">None</h1>
+				<div id="aSkills">
+					<p>Skills (active)</p>
+					<select id="skill1" name="skill1"></select>
+					<select id="skill2" name="skill2"></select>
+					<select id="skill3" name="skill3"></select>
+					<select id="skill4" name="skill4"></select>
+					<select id="skill5" name="skill5"></select>
 				</div>
-			</div>
-			<div id="class">
-				<p>Class</p>
-				<select id="classes" name="classes"></select>
-			</div>
-			<div id="hair">
-				<p>Hair Color (hex format, <b>MUST</b> be 6 chars long can include # but not necessary)</p>
-				<input maxlength="7" type="text" id="hairColor">
-			</div>
+				<div id="statWrap">
+						<p>stats (99 for max, 255 does weird things)</p>
+					<div id="stats">
+						<div id="stat"><span>HP</span><input type="text" value="0" maxlength = "3" id="hp"></div>
+						<div id="stat"><span>STR</span><input type="text" value="0" maxlength = "3" id="str"></div>
+						<div id="stat"><span>MAG</span><input type="text" value="0" maxlength = "3" id="mag"></div>
+						<div id="stat"><span>SKL</span><input type="text" value="0" maxlength = "3" id="skl"></div>
+						<div id="stat"><span>SPD</span><input type="text" value="0" maxlength = "3" id="spd"></div>
+						<div id="stat"><span>LCK</span><input type="text" value="0" maxlength = "3" id="lck"></div>
+						<div id="stat"><span>DEF</span><input type="text" value="0" maxlength = "3" id="def"></div>
+						<div id="stat"><span>RES</span><input type="text" value="0" maxlength = "3" id="res"></div>
+					</div>
+				</div>
+				<div id="class">
+					<p>Class</p>
+					<select id="classes" name="classes"></select>
+				</div>
+				<div id="hair">
+					<p>Hair Color (hex format, <b>MUST</b> be 6 chars long can include # but not necessary)</p>
+					<input maxlength="7" type="text" id="hairColor">
+				</div>
 
-			<div id="lvlExp">
-				<p>LVL/EXP/Boots</p>
-				<input type="text" maxlength="2" placeholder="LVL" id="lvl">
-				<input type="text" maxlength="2" placeholder="EXP" id="exp">
-				<input type="text" maxlength="2" placeholder="boots" id="boots">
+				<div id="lvlExp">
+					<p>LVL/EXP/Boots</p>
+					<input type="text" maxlength="2" placeholder="LVL" id="lvl">
+					<input type="text" maxlength="2" placeholder="EXP" id="exp">
+					<input type="text" maxlength="2" placeholder="boots" id="boots">
+				</div>
+				<div id="lSkills">
+					<p>Learned Skills</p>
+					<form action="">
+						<input name="skill" id="noChangeSkills" type="radio" checked>No Change<br>
+						<input name="skill" id="allSkills" type="radio">All Skills (even Lunitic+ skills)<br>
+						<input name="skill" id="allLSkills" type="radio">All Learnable Skills (except special dance)<br>
+						<input name="skill" id="NoSkills" type="radio">No skills<br>
+					</form>
+				</div>
+				<button id="updateUnit">Save Changes</button>
 			</div>
-			<div id="lSkills">
-				<p>Learned Skills</p>
-				<form action="">
-					<input name="skill" id="noChangeSkills" type="radio" checked>No Change<br>
-					<input name="skill" id="allSkills" type="radio">All Skills (even Lunitic+ skills)<br>
-					<input name="skill" id="allLSkills" type="radio">All Learnable Skills (except special dance)<br>
-					<input name="skill" id="NoSkills" type="radio">No skills<br>
-				</form>
-			</div>
-			<button id="update">Save Changes</button>
-		</div>
+		</section>
+		<section id="convoy">
+			<h1>Convoy Editor</h1>
+			<button id="updateConvoy">Save Changes</button>
+			<p>65535 is the max number of any given item (recorded in uses not items eg. i you wanted 20 bronze swords you would multiply 50 (the duribility) by 20 getting you 1000.) if the item has infinite uses or has only one use then just use 1</p>
+			<div class="item"><p>Change All</p><input id="all" type="text"></div>
+		</section>
 	</div>
 	<footer>
+		<ul>
+			<li id="UnitEditor">Unit Editor</li>
+			<li id="ConvoyEditor">Convoy Editor</li>
+		</ul>
 		<a id="download" href="#">Download File</a>
 	</footer>
 	<script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>

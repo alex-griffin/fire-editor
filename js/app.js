@@ -151,7 +151,7 @@ function readBlock(n){
 	$("#lck")[0].value = toDec(blocks[current].substring(30,32));
 	$("#def")[0].value = toDec(blocks[current].substring(32,34));
 	$("#res")[0].value = toDec(blocks[current].substring(34,36));
-	console.log(blocks[current])
+	console.log(blocks[current]);
 }
 
 function updateFileStrConvoy(){
@@ -193,6 +193,19 @@ function readConvoy(){
 	console.log(t)
 }
 
+var index;
+function readMisc(){
+	difficulty = fileStr.substring(25,37);
+	index = difficulty.substring(difficulty.length - 2, difficulty.length);
+	$("#difficulty").val(toDec(index));
+	console.log(index);
+
+
+	difficulty = difficulty.substring(0,difficulty.length - 4)
+
+	//$("#gold")[0].value = index;
+}
+
 $(document).ready(function() {
 	$("#hairColor").on("change keyup paste click", function(){
     	$("#hairColor")[0].style.backgroundColor = $("#hairColor")[0].value;
@@ -204,12 +217,15 @@ $(document).ready(function() {
 
 	$(document).on("click", '#updateUnit',function(){
 		updateFileStrUnit();
+		console.log("derp")
 	});
 	$(document).on("click", '#updateConvoy',function(){
 		updateFileStrConvoy();
 	});
 	$(document).on("click", '#import',function(){
 		beginApp();
+		$("#updateConvoy")[0].style.pointerEvents = "none";
+		$("#updateMisc")[0].style.pointerEvents = "none";
 		readFile();
 	});
 	$(document).on("click", "#download", function(){
@@ -229,11 +245,25 @@ $(document).ready(function() {
 	$(document).on("click", "#UnitEditor", function(){
 		$("#units").show();
 		$("#convoy").hide();
+		$("#updateConvoy")[0].style.pointerEvents = "none";
+		$("#misc").hide();
+		$("#updateMisc")[0].style.pointerEvents = "none";
 	});
 	$(document).on("click", "#ConvoyEditor", function(){
 		$("#units").hide();
+		$("#updateUnit")[0].style.pointerEvents = "none";
+		$("#misc").hide();
+		$("#updateMisc")[0].style.pointerEvents = "none";
 		$("#convoy").show();
 		readConvoy();
+	});
+	$(document).on("click", "#MiscEditor", function(){
+		$("#misc").show();
+		$("#units").hide();
+		$("#updateUnit")[0].style.pointerEvents = "none";
+		$("#convoy").hide();
+		$("#updateConvoy")[0].style.pointerEvents = "none";
+		readMisc();
 	});
 	setup();
 

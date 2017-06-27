@@ -59,7 +59,7 @@
 				</div>
 				<div id="class">
 					<p>Class</p>
-					<select id="classes" name="classes"></select>
+							<select id="classes" name="classes"></select>
 				</div>
 				<div id="hair">
 					<p>Hair Color (hex format, <b>MUST</b> be 6 chars long can include # but not necessary)</p>
@@ -90,11 +90,30 @@
 			<p>65535 is the max number of any given item (recorded in uses not items eg. i you wanted 20 bronze swords you would multiply 50 (the duribility) by 20 getting you 1000.) if the item has infinite uses or has only one use then just use 1</p>
 			<div class="item"><p>Change All</p><input id="all" type="text"></div>
 		</section>
+		<section id="misc">
+			<h1>NONE OF THIS WORKS IT WILL FUCK UP YOUR FILE IF YOU MESS WITH ANY OF IT</h1>
+			<p>coming soon</p>
+			<div id="difficult">
+				<button id="updateMisc">Save Changes</button>
+				<p>Difficulty</p>
+				<select id="difficulty" name="difficulty">
+					<option value="0">Normal</option>
+					<option value="1">Hard</option>
+					<option value="2">Lunitic</option>
+					<option value="3">Lunitic +</option>
+				</select>
+			</div>
+			<div id="money">
+				<p>Money</p>
+				<input type="text" id="gold">
+			</div>
+		</section>
 	</div>
 	<footer>
 		<ul>
 			<li id="UnitEditor">Unit Editor</li>
 			<li id="ConvoyEditor">Convoy Editor</li>
+			<li id="MiscEditor">Misc.</li>
 		</ul>
 		<a id="download" href="#">Download File</a>
 	</footer>

@@ -40,6 +40,7 @@ function toAscii(h) {
 
 function replaceBlock(b,e,r){
 	blocks[current] = blocks[current].replace(blocks[current].substring(b,e),r)
+	console.log(toDec(r));
 }
 
 function modBlockUpdate(){
@@ -193,17 +194,27 @@ function readConvoy(){
 	console.log(t)
 }
 
-var index;
+
 function readMisc(){
-	difficulty = fileStr.substring(25,37);
-	index = difficulty.substring(difficulty.length - 2, difficulty.length);
-	$("#difficulty").val(toDec(index));
-	console.log(index);
+	var index = fileStr.substring(25,33);
+	var difficulty = fileStr.substring(fileStr.indexOf(index) + index.length + 2, fileStr.indexOf(index) + index.length + 4);
+	$("#difficulty").val(toDec(difficulty));
+	console.log(difficulty);
 
+	var gold = fileStr.substring(fileStr.lastIndexOf(index) + index.length + 4, fileStr.lastIndexOf(index) + index.length + 10);
+	gold = toDec(gold.substring(4,6) + gold.substring(2,4) + gold.substring(0,2))
+	$("#gold")[0].value = gold;
+}
 
-	difficulty = difficulty.substring(0,difficulty.length - 4)
+function updateFileStrMisc(){
+	var index = fileStr.substring(25,33);
+	var temp = index.replace(fileStr.substring(fileStr.indexOf(index) + index.length + 2, fileStr.indexOf(index) + index.length + 4), $("#difficulty").val())
+	fileStr = fileStr.replace(index, temp);
+	var prevGold = fileStr.substring(fileStr.lastIndexOf(index) + index.length + 4, fileStr.lastIndexOf(index) + index.length + 10);
+	var gold = toHex($("#gold")[0].value, 6);
+	gold = gold.substring(4,6) + gold.substring(2,4) + gold.substring(0,2);
+	fileStr = fileStr.replace(prevGold, gold);
 
-	//$("#gold")[0].value = index;
 }
 
 $(document).ready(function() {
@@ -217,14 +228,17 @@ $(document).ready(function() {
 
 	$(document).on("click", '#updateUnit',function(){
 		updateFileStrUnit();
-		console.log("derp")
 	});
 	$(document).on("click", '#updateConvoy',function(){
 		updateFileStrConvoy();
 	});
+	$(document).on("click", '#updateMisc',function(){
+		updateFileStrMisc();
+	});
 	$(document).on("click", '#import',function(){
 		beginApp();
 		$("#updateConvoy")[0].style.pointerEvents = "none";
+		$("#updateMisc")[0].style.pointerEvents = "none";
 		$("#updateMisc")[0].style.pointerEvents = "none";
 		readFile();
 	});
@@ -248,6 +262,7 @@ $(document).ready(function() {
 		$("#updateConvoy")[0].style.pointerEvents = "none";
 		$("#misc").hide();
 		$("#updateMisc")[0].style.pointerEvents = "none";
+		$("#updateUnit")[0].style.pointerEvents = "auto";
 	});
 	$(document).on("click", "#ConvoyEditor", function(){
 		$("#units").hide();
@@ -255,6 +270,7 @@ $(document).ready(function() {
 		$("#misc").hide();
 		$("#updateMisc")[0].style.pointerEvents = "none";
 		$("#convoy").show();
+		$("#updateConvoy")[0].style.pointerEvents = "auto";
 		readConvoy();
 	});
 	$(document).on("click", "#MiscEditor", function(){
@@ -264,6 +280,7 @@ $(document).ready(function() {
 		$("#convoy").hide();
 		$("#updateConvoy")[0].style.pointerEvents = "none";
 		readMisc();
+		$("#updateMisc")[0].style.pointerEvents = "auto";
 	});
 	setup();
 

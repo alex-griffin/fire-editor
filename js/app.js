@@ -39,8 +39,7 @@ function toAscii(h) {
 }
 
 function replaceBlock(b,e,r){
-	blocks[current] = blocks[current].replace(blocks[current].substring(b,e),r)
-	console.log(toDec(r));
+	blocks[current] = blocks[current].substring(0,b) + r + blocks[current].substring(e,blocks[current].length);
 }
 
 function modBlockUpdate(){
@@ -200,20 +199,21 @@ function readMisc(){
 	var difficulty = fileStr.substring(fileStr.indexOf(index) + index.length + 2, fileStr.indexOf(index) + index.length + 4);
 	$("#difficulty").val(toDec(difficulty));
 	console.log(difficulty);
-
-	var gold = fileStr.substring(fileStr.lastIndexOf(index) + index.length + 4, fileStr.lastIndexOf(index) + index.length + 10);
+	var gold = fileStr.substring(fileStr.indexOf(index, 33 + index.length) + index.length + 4, fileStr.indexOf(index, 33 + index.length) + index.length + 10);
 	gold = toDec(gold.substring(4,6) + gold.substring(2,4) + gold.substring(0,2))
 	$("#gold")[0].value = gold;
 }
 
 function updateFileStrMisc(){
 	var index = fileStr.substring(25,33);
-	var temp = index.replace(fileStr.substring(fileStr.indexOf(index) + index.length + 2, fileStr.indexOf(index) + index.length + 4), $("#difficulty").val())
-	fileStr = fileStr.replace(index, temp);
-	var prevGold = fileStr.substring(fileStr.lastIndexOf(index) + index.length + 4, fileStr.lastIndexOf(index) + index.length + 10);
+	var prevDiff = fileStr.substring(fileStr.indexOf(index) + index.length + 2, fileStr.indexOf(index) + index.length + 4);
+	fileStr = fileStr.substring(0, fileStr.indexOf(index) + index.length + 2) + toHex($("#difficulty").val()) + fileStr.substring(fileStr.indexOf(index) + index.length + 4, fileStr.length);
+	//console.log(fileStr.substring(25, 41))
+	var prevGold = fileStr.substring(fileStr.indexOf(index, 33 + index.length) + index.length + 4, fileStr.indexOf(index, 33 + index.length) + index.length + 10);
 	var gold = toHex($("#gold")[0].value, 6);
 	gold = gold.substring(4,6) + gold.substring(2,4) + gold.substring(0,2);
-	fileStr = fileStr.replace(prevGold, gold);
+	console.log(gold);
+	fileStr = fileStr.substring(0, fileStr.indexOf(index, 33 + index.length) + index.length + 4) + gold + fileStr.substring(fileStr.indexOf(index, 33 + index.length) + index.length + 10, fileStr.length);
 
 }
 

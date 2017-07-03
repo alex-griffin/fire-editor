@@ -28,7 +28,7 @@
 		 Once you have a decompressed save file just hit the "Choose File"
 		  button in the corner to load your file then press IMPORT!
 		  <b>twice</b> and only twice otherwise some weird shit happens</p>
-		  <p>currentally you can edit: lvl, exp, boot number, class, hair color(Lucina and parent units do nothing), all stats, convoy, active skills, and equiped skills</p>
+		  <p>currentally you can edit: lvl, exp, boot number, class, hair color(Lucina and parent units do nothing), all stats, the convoy, difficulty, gold, active skills, and equiped skills</p>
 		<p>If anything doesn't work press it again. I was really lazy with my code so there are tons of bugs</p>
 	</div>
 	<div id="app">
@@ -67,7 +67,7 @@
 				</div>
 
 				<div id="lvlExp">
-					<p>LVL/EXP/Boots.</p>
+					<p>LVL/EXP/Boots</p>
 					<input type="text" maxlength="2" placeholder="LVL" id="lvl">
 					<input type="text" maxlength="2" placeholder="EXP" id="exp">
 					<input type="text" maxlength="2" placeholder="boots" id="boots">
@@ -91,10 +91,7 @@
 			<div class="item"><p>Change All</p><input id="all" type="text"></div>
 		</section>
 		<section id="misc">
-			<h1>NONE OF THIS WORKS IT WILL FUCK UP YOUR FILE IF YOU MESS WITH ANY OF IT</h1>
-			<p>coming soon</p>
 			<div id="difficult">
-				<button id="updateMisc">Save Changes</button>
 				<p>Difficulty</p>
 				<select id="difficulty" name="difficulty">
 					<option value="0">Normal</option>
@@ -102,6 +99,11 @@
 					<option value="2">Lunitic</option>
 					<option value="3">Lunitic +</option>
 				</select>
+				<!-- <select id="death" name="death">
+					<option value="78">Casual</option>
+					<option value="7A">Classic</option>
+				</select>  -->
+				<button id="updateMisc">Save Changes</button>
 			</div>
 			<div id="money">
 				<p>Money</p>

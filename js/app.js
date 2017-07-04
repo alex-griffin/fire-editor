@@ -45,14 +45,17 @@ function replaceBlock(b,e,r){
 function modBlockUpdate(){
 	modBlock = blocks[current];
 	replaceBlock(6,8, toHex(parseInt($("#classes")[0].options[$("#classes")[0].selectedIndex].value)))
+
 	replaceBlock(102,104, toHex(parseInt($("#skill1")[0].options[$("#skill1")[0].selectedIndex].value)))
 	replaceBlock(106,108, toHex(parseInt($("#skill2")[0].options[$("#skill2")[0].selectedIndex].value)))
 	replaceBlock(110,112, toHex(parseInt($("#skill3")[0].options[$("#skill3")[0].selectedIndex].value)))
 	replaceBlock(114,116, toHex(parseInt($("#skill4")[0].options[$("#skill4")[0].selectedIndex].value)))
 	replaceBlock(118,120, toHex(parseInt($("#skill5")[0].options[$("#skill5")[0].selectedIndex].value)))
+
 	replaceBlock(36,38, toHex(parseInt($("#lvl")[0].value)));
 	replaceBlock(38,40, toHex(parseInt($("#exp")[0].value)));
 	replaceBlock(42,44, toHex(parseInt($("#boots")[0].value)));
+
 	replaceBlock(20,22, toHex(parseInt($("#hp")[0].value)));
 	replaceBlock(22,24, toHex(parseInt($("#str")[0].value)));
 	replaceBlock(24,26, toHex(parseInt($("#mag")[0].value)));
@@ -61,6 +64,14 @@ function modBlockUpdate(){
 	replaceBlock(30,32, toHex(parseInt($("#lck")[0].value)));
 	replaceBlock(32,34, toHex(parseInt($("#def")[0].value)));
 	replaceBlock(34,36, toHex(parseInt($("#res")[0].value)));
+
+	replaceBlock(122,124, toHex(parseInt($("#swordExp")[0].value)));
+	replaceBlock(124,126, toHex(parseInt($("#spearExp")[0].value)));
+	replaceBlock(126,128, toHex(parseInt($("#axeExp")[0].value)));
+	replaceBlock(128,130, toHex(parseInt($("#bowExp")[0].value)));
+	replaceBlock(130,132, toHex(parseInt($("#tombExp")[0].value)));
+	replaceBlock(132,134, toHex(parseInt($("#staveExp")[0].value)));
+
 	var bSkillBlock = blocks[current].indexOf("ffff0000000002") + 32 + "ffff0000000002".length;
 	var eSkillBlock = blocks[current].indexOf("ffff0000000002") + 58 + "ffff0000000002".length;
 	if($("#noChangeSkills").prop("checked") === true){
@@ -151,6 +162,12 @@ function readBlock(n){
 	$("#lck")[0].value = toDec(blocks[current].substring(30,32));
 	$("#def")[0].value = toDec(blocks[current].substring(32,34));
 	$("#res")[0].value = toDec(blocks[current].substring(34,36));
+	$("#swordExp")[0].value = toDec(blocks[current].substring(122,124));
+	$("#spearExp")[0].value = toDec(blocks[current].substring(124,126));
+	$("#axeExp")[0].value = toDec(blocks[current].substring(126,128));
+	$("#bowExp")[0].value = toDec(blocks[current].substring(128,130));
+	$("#tombExp")[0].value = toDec(blocks[current].substring(130,132));
+	$("#staveExp")[0].value = toDec(blocks[current].substring(132,134));
 	console.log(blocks[current]);
 }
 

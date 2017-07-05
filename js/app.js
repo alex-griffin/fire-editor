@@ -6,17 +6,6 @@ var classes = ["Lord M","Lord F","Great Lord M","Great Lord F","Tactician M","Ta
 
 var items = ["Bronze Sword", "Iron Sword", "Steel Sword", "Silver Sword", "Brave Sword", "Armor Slayer", "Wyrmslayer", "Killing Edge", "Levin Sword", "Rapier", "Noble Rapier", "Missletainn", "Sol", "Amatsu", "Falchion", "Exalted Falchion", "Parallel Falchion", "Mercurius", "Tyrfing", "Mystletainn", "Balmung", "Sol Katti", "Ragnell", "Ragnell Inf Durability", "Tree Branch", "Soothing Sword", "Glass Sword", "Superior Edge", "Eliwoods Blade", "Roys Blade", "Alms Blade", "Leifs Blade", "Eirikas Blade", "Seliphs Blade", "Bronze Lance", "Iron Lance", "Steel Lance", "Silver Lance", "Brave Lance", "Javelin", "Short Spear", "Spear", "Beast Killer", "Blessed Lance", "Killer Lance", "Luna", "Gradivus", "Gungnir", "Gae Bolg", "Log", "Miniature Lance", "Shockstick", "Glass Lance", "Superior Lance", "Sigurds Lance", "Ephraims Lance", "Finns Lance", "Bronze Axe", "Iron Axe", "Steel Axe", "Silver Sxe", "Brave Axe", "Hand Axe", "Short Axe", "Tomahawk", "Hammer", "Bolt Axe", "Killer Axe", "Vengance", "Wolf Berg", "Hauteclare", "Helswath", "Armads", "Ladle", "Imposing Axe", "Volant Axe", "Glass Axe", "Superior Axe", "Titanias Axe", "Orsins Hatchet", "Hectors Axe", "Bronze Bow", "Iron Bow", "Steel Bow", "Silver Bow", "Brave Bow", "Blessed Bow", "Killer Bow", "Long Bow", "Astra", "Parthia", "Yewfelle", "Nidhogg", "Double Bow", "Slack Bow", "Towering Bow", "Underdog Bow", "Glass Bow", "Superior Bow", "Wolts Bow", "Innes Bow", "Fire", "Elfire", "Arcfire", "Bolganone", "Valflame", "Thunder", "Elthunder", "Arcthunder", "Thoron", "Mjollnir", "Wind", "Elwind", "Arcwind", "Rexcalibur", "Forseti", "Excalibur", "Book of Naga", "Flux", "Nosferatu", "Ruin", "Waste", "Goetia", "Grimas Truth", "Mire", "Dying Blaze", "Micaiahs Pyre", "Superior Jolt", "Katarinas Bolt", "Wilderwind", "Celias Gale", "Aversas Night", "Heal", "Mend", "Physic", "Recover", "Fortify", "Goddess Staff", "Rescue", "Ward", "Hammerne", "Kneader", "Balmwood Staff", "Catharsis", "Dragonstone", "Dragonstone plus", "Beaststone", "Beaststone plus", "Blighted Claws", "Blighted Talons", "Expiration", "Vulnerary", "Concoction", "Elixer", "Pure Water", "HP Tonic", "Strength Tonic", "Magic Tonic", "Skill Tonic", "Speed Tonic", "Luck Tonic", "Defense Tonic", "Resistance Tonic", "Door Key", "Chest Key", "Master Key", "Seraph Robe", "Energy Drop", "Sprit Dist", "Secret Book", "Speedwing", "Goddess Icon", "Dracoshield", "Talisman", "Nagas Tear", "Boots", "Arms Scroll", "Master Seal", "Second Seal", "Bullion S", "Bullion M", "Bullion L", "Sweet Tincture", "Gaius Confect", "Kris Confect", "Tikis Tear", "Seed of Trust", "Reeking Box", "Rift Door", "Supreme Emblem", "All Stats plus 2", "Paragon", "Iotes Shield", "Limit Breaker", "Silver Card", "Dread Scroll", "Wedding Bouquet", "1000 Gold", "3000 Gold", "5000 Gold", "7000 Gold"]
 
-
-
-var fileStr;
-var blocks = [];
-var characterRegex = /07..00......................................ffffffff04........04........04........04........04..........00..00..00..00..00.............*?ffff0000000002..................................................................*?..............ff(00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff........................ff....|0000|0106|0001|0000..0000)/g
-var modBlock;
-var current = null;
-var compiledFile = "";
-var fileName = "";
-
-
 function toDec(num){
 	return parseInt(num, 16)
 }
@@ -38,76 +27,288 @@ function toAscii(h) {
     return str;
 }
 
-function replaceBlock(b,e,r){
-	blocks[current] = blocks[current].substring(0,b) + r + blocks[current].substring(e,blocks[current].length);
-}
-
-function modBlockUpdate(){
-	modBlock = blocks[current];
-	replaceBlock(6,8, toHex(parseInt($("#classes")[0].options[$("#classes")[0].selectedIndex].value)))
-
-	replaceBlock(102,104, toHex(parseInt($("#skill1")[0].options[$("#skill1")[0].selectedIndex].value)))
-	replaceBlock(106,108, toHex(parseInt($("#skill2")[0].options[$("#skill2")[0].selectedIndex].value)))
-	replaceBlock(110,112, toHex(parseInt($("#skill3")[0].options[$("#skill3")[0].selectedIndex].value)))
-	replaceBlock(114,116, toHex(parseInt($("#skill4")[0].options[$("#skill4")[0].selectedIndex].value)))
-	replaceBlock(118,120, toHex(parseInt($("#skill5")[0].options[$("#skill5")[0].selectedIndex].value)))
-
-	replaceBlock(36,38, toHex(parseInt($("#lvl")[0].value)));
-	replaceBlock(38,40, toHex(parseInt($("#exp")[0].value)));
-	replaceBlock(42,44, toHex(parseInt($("#boots")[0].value)));
-
-	replaceBlock(20,22, toHex(parseInt($("#hp")[0].value)));
-	replaceBlock(22,24, toHex(parseInt($("#str")[0].value)));
-	replaceBlock(24,26, toHex(parseInt($("#mag")[0].value)));
-	replaceBlock(26,28, toHex(parseInt($("#skl")[0].value)));
-	replaceBlock(28,30, toHex(parseInt($("#spd")[0].value)));
-	replaceBlock(30,32, toHex(parseInt($("#lck")[0].value)));
-	replaceBlock(32,34, toHex(parseInt($("#def")[0].value)));
-	replaceBlock(34,36, toHex(parseInt($("#res")[0].value)));
-
-	replaceBlock(122,124, toHex(parseInt($("#swordExp")[0].value)));
-	replaceBlock(124,126, toHex(parseInt($("#spearExp")[0].value)));
-	replaceBlock(126,128, toHex(parseInt($("#axeExp")[0].value)));
-	replaceBlock(128,130, toHex(parseInt($("#bowExp")[0].value)));
-	replaceBlock(130,132, toHex(parseInt($("#tombExp")[0].value)));
-	replaceBlock(132,134, toHex(parseInt($("#staveExp")[0].value)));
-
-	var bSkillBlock = blocks[current].indexOf("ffff0000000002") + 32 + "ffff0000000002".length;
-	var eSkillBlock = blocks[current].indexOf("ffff0000000002") + 58 + "ffff0000000002".length;
-	if($("#noChangeSkills").prop("checked") === true){
-
-	} else if($("#allSkills").prop("checked") === true){
-		replaceBlock(bSkillBlock,eSkillBlock, "FEFFFFFFFFFFFFFFFFFFFFFF7F");
-	} else if($("#allLSkills").prop("checked") === true){
-		replaceBlock(bSkillBlock,eSkillBlock, "FEFFFFFFFFFFBFFFFFFFFF0F78");
-	} else if($("#NoSkills").prop("checked") === true){
-		replaceBlock(bSkillBlock,eSkillBlock, "00000000000000000000000000");
+function toBin(h) {
+	var output = '';
+	for (var i = 0; i < h.length; i++) {
+		var decimal = parseInt(h.charAt(i), 16);
+		var binary = decimal.toString(2)
+		while (binary.length < 4) {
+          binary = "0" + binary;
+      }
+		output += binary;
 	}
-	replaceBlock(blocks[current].length - 12, blocks[current].length - 6,$("#hairColor")[0].value.replace('#',''))
+	return output;
 }
 
-function updateFileStrUnit(){
-	modBlock = blocks[current]
-	modBlockUpdate();
-	fileStr = fileStr.replace(modBlock, blocks[current]);
-	console.log("\n" +  blocks[current])
-	//blocks[current] = modBlock;
+function bToHex(b) {
+	var output = '';
+        for (var i = 0; i < b.length; i += 4) {
+            var bytes = b.substr(i, 4);
+            var decimal = parseInt(bytes, 2);
+            var hex = decimal.toString(16);
+            output += hex;
+        }
+        return output;
 }
+
+var values = {
+	CHARACTER_HEADER : "54494e55", //TINU
+	CHARACTER_FOOTER : "ff49464552", //ÿIFER
+	CHARACTER_ID : "ffff04",
+	FUCK_START_YOUR_SOUL: "32ffff",
+	FUCK : "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+	FUCK_DLC : "ffff00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+	unitNumber: 0,
+};
+
+//unit constructor function
+function Unit(str){
+	this.characterStr = str;
+	this.prevCharacterStr = str;
+	this.charID;
+	this.name;
+	this.class;
+	this.aSkills = {
+		"1": null, "2": null, "3": null, "4": null, "5": null
+	}
+	this.lSkills = {
+		hex: null, bin: null, binR: null,
+		reverse: function(input){
+			var out = "";
+			for(var i = 0; i <= input.length - 8; i += 8){
+				var t = input.substr(i, 8);
+				out += t.split("").reverse().join("");
+			}
+
+			return out;
+		}
+	};
+	this.hairColor;
+	this.stats = {
+		str: null, mag: null, spd: null, skl: null, lck: null, def: null, res: null, hp: null, exp: null, mov: null
+	}
+	this.weaponExp = {
+		sword: null, spear: null, axe: null, bow: null, tomb: null, stave: null
+	}
+	this.avatarData = {
+		asset: null, flaw: null, gender: null, build: null, face: null, hair: null
+	}
+	this.name;
+	this.isAvatar = function(){
+		if(toDec(this.charID) == 0 || toDec(this.charID) == 1){
+			return true;
+		} else return false;
+	}
+	this.isChild = function(){
+		if(toDec(this.charID) >= 32 && toDec(this.charID) <= 44){
+			return true;
+		} else return false;
+	}
+	this.isDLC = function(){
+		if(toDec(this.charID) == 2) {
+			return true;
+		} else return false;
+	}
+	this.setValues = function(){
+		this.charID = this.characterStr.substring(2,4);
+		if(this.isAvatar() || this.isDLC()) {
+			if(this.characterStr.indexOf(values.FUCK) != -1){
+				this.name = toAscii(this.characterStr.substr(this.characterStr.indexOf(values.FUCK) + values.FUCK.length + 30, 48).replace(/00/g, ""));
+			} else {
+				this.name = toAscii(this.characterStr.substr(this.characterStr.indexOf(values.FUCK_DLC) + values.FUCK_DLC.length + 30, 48).replace(/00/g, ""));
+			}
+		} else {
+			this.name = names[toDec(this.charID)];
+		}
+		this.class = this.characterStr.substr(6,2);
+
+		this.aSkills[1] = this.characterStr.substr(102, 2);
+		this.aSkills[2] = this.characterStr.substr(106, 2);
+		this.aSkills[3] = this.characterStr.substr(110, 2);
+		this.aSkills[4] = this.characterStr.substr(114, 2);
+		this.aSkills[5] = this.characterStr.substr(118, 2);
+
+		this.stats.str = this.characterStr.substr(22,2);
+		this.stats.mag = this.characterStr.substr(24,2);
+		this.stats.skl = this.characterStr.substr(26,2);
+		this.stats.spd = this.characterStr.substr(28,2);
+		this.stats.lck = this.characterStr.substr(30,2);
+		this.stats.def = this.characterStr.substr(32,2);
+		this.stats.res = this.characterStr.substr(34,2);
+		this.stats.hp = this.characterStr.substr(20,2);
+
+		this.stats.exp = this.characterStr.substr(38,2);
+		this.stats.mov = this.characterStr.substr(42,2);
+		this.stats.lvl = this.characterStr.substr(36,2);
+
+		this.weaponExp.sword = this.characterStr.substr(122,2);
+		this.weaponExp.spear = this.characterStr.substr(124,2);
+		this.weaponExp.axe = this.characterStr.substr(126,2);
+		this.weaponExp.bow = this.characterStr.substr(128,2);
+		this.weaponExp.tomb = this.characterStr.substr(130,2);
+		this.weaponExp.stave = this.characterStr.substr(132,2);
+
+		var bSkillBlock = this.characterStr.indexOf("ffff0000000002") + 32 + "ffff0000000002".length;
+		var eSkillBlock = this.characterStr.indexOf("ffff0000000002") + 58 + "ffff0000000002".length;
+		this.lSkills.hex = this.characterStr.substring(bSkillBlock, eSkillBlock)
+		this.lSkills.bin = toBin(this.lSkills.hex);
+		this.lSkills.binR = this.lSkills.reverse(this.lSkills.bin);
+
+		if(this.isChild()) {
+			this.hairColor = "#" + this.characterStr.substr(this.characterStr.indexOf(values.FUCK_START_YOUR_SOUL) + 90 + values.FUCK_START_YOUR_SOUL.length, 6);
+		}
+		if(this.isDLC() || this.isAvatar()) {
+			var offset = this.characterStr.indexOf(values.FUCK) + values.FUCK.length + 38 + 48;
+			this.hairColor = "#" + this.characterStr.substr(offset + 8, 6);
+			//this.avatarData.build = this.characterStr.substr(offset + 2, 2);
+			//this.avatarData.hair = this.characterStr.substr(offset + 4, 2);
+			//this.avatarData.face = this.characterStr.substr(offset + 6, 2);
+		}
+
+
+	}
+	this.loadValues = function(){
+		$("#current")[0].innerHTML = this.name;
+		$("#classes").val(toDec(this.class));
+		$("#lvl")[0].value = toDec(this.stats.lvl);
+		$("#exp")[0].value = toDec(this.stats.exp);
+		$("#boots")[0].value = toDec(this.stats.mov);
+
+		$("#skill1").val(toDec(this.aSkills[1]));
+		$("#skill2").val(toDec(this.aSkills[2]));
+		$("#skill3").val(toDec(this.aSkills[3]));
+		$("#skill4").val(toDec(this.aSkills[4]));
+		$("#skill5").val(toDec(this.aSkills[5]));
+
+		$("#hp")[0].value  = toDec(this.stats.hp);
+		$("#str")[0].value = toDec(this.stats.str);
+		$("#mag")[0].value = toDec(this.stats.mag);
+		$("#skl")[0].value = toDec(this.stats.skl);
+		$("#spd")[0].value = toDec(this.stats.spd);
+		$("#lck")[0].value = toDec(this.stats.lck);
+		$("#def")[0].value = toDec(this.stats.def);
+		$("#res")[0].value = toDec(this.stats.res);
+
+		$("#swordExp")[0].value = toDec(this.weaponExp.sword);
+		$("#spearExp")[0].value = toDec(this.weaponExp.spear);
+		$("#axeExp")[0].value = toDec(this.weaponExp.axe);
+		$("#bowExp")[0].value = toDec(this.weaponExp.bow);
+		$("#tombExp")[0].value = toDec(this.weaponExp.tomb);
+		$("#staveExp")[0].value = toDec(this.weaponExp.stave);
+
+		if(this.isAvatar() || this.isChild() || this.isDLC()){
+			$("#hair").show();
+			$("#hairColor")[0].value = this.hairColor;
+
+		} else {
+			$("#hair").hide();
+		}
+
+		/*if(this.isAvatar() || this.isDLC()){
+			$("#apperance").show();
+			$("#build").val(this.avatarData.build);
+			$("#face").val(this.avatarData.face);
+			$("#hair").val(this.avatarData.hair);
+		} else {
+			$("#apperance").hide();
+		}*/
+		var skillElements = document.getElementsByName('skill');
+		for(var i = 1; i < skills.length - 1; i++) {
+			if(this.lSkills.binR.substr(i, 1) == 1){
+				skillElements[i - 1].checked = true;
+			} else {
+				skillElements[i - 1].checked = false;
+			}
+		}
+	}
+	this.replace = function(b,r){
+		this.characterStr = this.characterStr.substring(0, b) + r + this.characterStr.substring(b + r.length, this.characterStr.length);
+	}
+	this.buildNewUnitBlock = function() {
+		this.replace(20, toHex($("#hp")[0].value));
+		this.replace(22, toHex($("#str")[0].value));
+		this.replace(24, toHex($("#mag")[0].value));
+		this.replace(26, toHex($("#skl")[0].value));
+		this.replace(28, toHex($("#spd")[0].value));
+		this.replace(30, toHex($("#lck")[0].value));
+		this.replace(32, toHex($("#def")[0].value));
+		this.replace(34, toHex($("#res")[0].value));
+
+		this.replace(122, toHex($("#swordExp")[0].value));
+		this.replace(124, toHex($("#spearExp")[0].value));
+		this.replace(126, toHex($("#axeExp")[0].value));
+		this.replace(128, toHex($("#bowExp")[0].value));
+		this.replace(130, toHex($("#tombExp")[0].value));
+		this.replace(132, toHex($("#staveExp")[0].value));
+
+		this.replace(102, toHex($("#skill1").val()));
+		this.replace(106, toHex($("#skill2").val()));
+		this.replace(110, toHex($("#skill3").val()));
+		this.replace(114, toHex($("#skill4").val()));
+		this.replace(118, toHex($("#skill5").val()));
+
+		this.replace(38, toHex($("#exp")[0].value));
+		this.replace(42, toHex($("#boots")[0].value));
+		this.replace(36, toHex($("#lvl")[0].value));
+
+		this.replace(6, toHex($("#classes").val()));
+
+		if(this.isChild()) {
+			this.replace(this.characterStr.substr(this.characterStr.indexOf(values.FUCK_START_YOUR_SOUL) + 90 + values.FUCK_START_YOUR_SOUL.length, $("#hairColor")[0].value.replace("#", "")));
+		}
+		if(this.isDLC() || this.isAvatar()) {
+			var offset = this.characterStr.indexOf(values.FUCK) + values.FUCK.length + 38 + 48;
+			this.replace(offset,  $("#hairColor")[0].value.replace("#", ""))
+		}
+
+		var newSkillBin = "0";
+		var skillElements = document.getElementsByName('skill');
+		for(var i = 0; i < skillElements.length; i++) {
+				if(skillElements[i].checked == 1){
+					newSkillBin += "1";
+				} else {
+					newSkillBin += "0";
+				}
+		}
+		newSkillBin += "0";
+		var newSkillHex = bToHex(this.lSkills.reverse(newSkillBin));
+		console.log(newSkillBin)
+		console.log(newSkillHex)
+		this.replace(this.characterStr.indexOf("ffff0000000002") + 32 + "ffff0000000002".length, newSkillHex);
+	}
+}
+
+
+
+var fileStr;
+var blocks = [];
+var current = null;
+var compiledFile = "";
+var fileName = "";
+
+
+
+
 
 function setup(){
 	for(var i = 1; i <= 5; i++){
-		for(var j = 0; j < skills.length; j++){
+		for(var j = 0; j < skills.length; j++) {
 			var c = '<option value="' + j + '">' + skills[j] + '</option>';
 			$("#skill" + i)[0].innerHTML += c;
 		}
 	}
-	for(var j = 0; j < classes.length; j++){
+	for(var j = 0; j < classes.length; j++) {
 		var c = '<option value="' + j + '">' + classes[j] + '</option>';
 		$("#classes")[0].innerHTML += c;
 	}
-	for(var i = 0; i < items.length; i++){
+	for(var i = 0; i < items.length; i++) {
 		var c = "<div class=\"item\" id=" + items[i].replace(/ /g, "") + "><p>" + items[i] + "</p><input type=\"text\"></div>"
 		$("#convoy")[0].innerHTML += c;
+	}
+	for(var i = 1; i < skills.length - 1; i++) {
+		var c = "<div><input name=\"skill\" type=\"checkbox\">" + skills[i] + "</div>";
+		$("#lSkillsForm")[0].innerHTML += c;
+
 	}
 }
 
@@ -118,13 +319,35 @@ function beginApp(){
 
 function makeList(){
 	for(var i = 0; i < blocks.length; i++){
-		$("#unitList")[0].innerHTML += ("<li id=\"unit" + i + "\">" + names[toDec(blocks[i].substr(2,2))] + "</li>")
+		$("#unitList")[0].innerHTML += ("<li id=\"unit" + i + "\">" + blocks[i].name + "</li>")
 	}
 }
 
-function parseFile(){
+function readCharacterBlocks(){
 	blocks = [];
-	blocks = fileStr.match(characterRegex);
+	while(blocks.length > 0) {
+   	blocks.pop();
+	}
+	var indexes = [];
+	while(indexes.length > 0) {
+   	indexes.pop();
+	}
+	var characterBlock = fileStr.substring(fileStr.indexOf(values.CHARACTER_HEADER) + values.CHARACTER_HEADER.length, fileStr.indexOf(values.CHARACTER_FOOTER));
+	values.unitNumber = toDec(characterBlock.substring(4, 6));
+	for(var i = characterBlock.indexOf(values.CHARACTER_ID); i >= 0; i = characterBlock.indexOf(values.CHARACTER_ID, i + 1)) {
+		var temp = characterBlock.substring(i - 48);
+		if(temp.substring(0,2) == "07" && temp.substring(4,6) == "00"){
+			indexes.push(i - 48);
+		}
+	}
+	for(var i = 0; i < indexes.length; i++){
+		if(i + 1 < indexes.length){
+			blocks[i] = new Unit(characterBlock.substring(indexes[i], indexes[i + 1]));
+			blocks[i].setValues();
+		}
+	}
+
+
 	makeList();
 }
 
@@ -137,38 +360,7 @@ function readFile(){
 
 		}
 	}
-	parseFile();
-}
-
-function readBlock(n){
-	current = n;
-	$("#current")[0].innerHTML = names[toDec(blocks[current].substring(2,4))];
-	$("#classes").val(toDec(blocks[current].substring(6,8)));
-	$("#lvl")[0].value = toDec(blocks[current].substring(36,38));
-	$("#exp")[0].value = toDec(blocks[current].substring(38,40));
-	$("#boots")[0].value = toDec(blocks[current].substring(42,44));
-	$("#skill1").val(toDec(blocks[current].substring(102, 104)));
-	$("#skill2").val(toDec(blocks[current].substring(106, 108)));
-	$("#skill3").val(toDec(blocks[current].substring(110, 112)));
-	$("#skill4").val(toDec(blocks[current].substring(114, 116)));
-	$("#skill5").val(toDec(blocks[current].substring(118, 120)));
-	$("#hairColor")[0].value = "#" + blocks[current].substring(blocks[current].length - 12, blocks[current].length - 6)
-	$("#hairColor")[0].style.backgroundColor = $("#hairColor")[0].value;
-	$("#hp")[0].value  = toDec(blocks[current].substring(20,22));
-	$("#str")[0].value = toDec(blocks[current].substring(22,24));
-	$("#mag")[0].value = toDec(blocks[current].substring(24,26));
-	$("#skl")[0].value = toDec(blocks[current].substring(26,28));
-	$("#spd")[0].value = toDec(blocks[current].substring(28,30));
-	$("#lck")[0].value = toDec(blocks[current].substring(30,32));
-	$("#def")[0].value = toDec(blocks[current].substring(32,34));
-	$("#res")[0].value = toDec(blocks[current].substring(34,36));
-	$("#swordExp")[0].value = toDec(blocks[current].substring(122,124));
-	$("#spearExp")[0].value = toDec(blocks[current].substring(124,126));
-	$("#axeExp")[0].value = toDec(blocks[current].substring(126,128));
-	$("#bowExp")[0].value = toDec(blocks[current].substring(128,130));
-	$("#tombExp")[0].value = toDec(blocks[current].substring(130,132));
-	$("#staveExp")[0].value = toDec(blocks[current].substring(132,134));
-	console.log(blocks[current]);
+	readCharacterBlocks();
 }
 
 function updateFileStrConvoy(){
@@ -191,6 +383,9 @@ function download(filename, text) {
 
 function makeFile(){
 	y=[];
+	for(var i = 0; i < blocks.length; i++) {
+		fileStr = fileStr.replace(blocks[i].prevCharacterStr, blocks[i].characterStr);
+	}
 	(fileStr.replace('undefined','')+" ").replace(/.{1,2}/g,function(a){
 		y.push(parseInt(a,16))
 	});
@@ -209,7 +404,6 @@ function readConvoy(){
 	}
 	console.log(t)
 }
-
 
 function readMisc(){
 	var index = fileStr.substring(25,33);
@@ -240,18 +434,25 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '#unitList li', function () {
-		readBlock($(this).index());
+		blocks[$(this).index()].setValues();
+		blocks[$(this).index()].loadValues();
+		current = $(this).index();
+		$("#hairColor")[0].style.backgroundColor = $("#hairColor")[0].value;
 	});
 
 	$(document).on("click", '#updateUnit',function(){
-		updateFileStrUnit();
+		blocks[current].buildNewUnitBlock();
+		console.log(blocks[current].characterStr)
 	});
+
 	$(document).on("click", '#updateConvoy',function(){
 		updateFileStrConvoy();
 	});
+
 	$(document).on("click", '#updateMisc',function(){
 		updateFileStrMisc();
 	});
+
 	$(document).on("click", '#import',function(){
 		beginApp();
 		$("#updateConvoy")[0].style.pointerEvents = "none";
@@ -259,20 +460,24 @@ $(document).ready(function() {
 		$("#updateMisc")[0].style.pointerEvents = "none";
 		readFile();
 	});
+
 	$(document).on("click", "#download", function(){
 		makeFile();
 	});
+
 	$(document).on("change", "#stat input", function(){
 		if(parseInt(this.value) > 255 || parseInt(this.value) < 0 || isNaN(this.value)){
 			alert("invalid value, only numbers between 0 and 255");
 			this.value = 0;
 		}
 	});
+
 	$(document).on("change", "#all", function(){
 		for(var i = 0; i < items.length; i++){
 			$("#" + items[i].replace(/ /g, "") + " input")[0].value = $("#all")[0].value;
 		}
 	})
+
 	$(document).on("click", "#UnitEditor", function(){
 		$("#units").show();
 		$("#convoy").hide();
@@ -281,6 +486,7 @@ $(document).ready(function() {
 		$("#updateMisc")[0].style.pointerEvents = "none";
 		$("#updateUnit")[0].style.pointerEvents = "auto";
 	});
+
 	$(document).on("click", "#ConvoyEditor", function(){
 		$("#units").hide();
 		$("#updateUnit")[0].style.pointerEvents = "none";
@@ -290,6 +496,7 @@ $(document).ready(function() {
 		$("#updateConvoy")[0].style.pointerEvents = "auto";
 		readConvoy();
 	});
+
 	$(document).on("click", "#MiscEditor", function(){
 		$("#misc").show();
 		$("#units").hide();
@@ -298,6 +505,13 @@ $(document).ready(function() {
 		$("#updateConvoy")[0].style.pointerEvents = "none";
 		readMisc();
 		$("#updateMisc")[0].style.pointerEvents = "auto";
+	});
+
+	$(document).on("click", "#godBox", function() {
+		checkboxes = document.getElementsByName('skill');
+		for(var i = 0; i < checkboxes.length; i++) {
+			checkboxes[i].checked = $("#godBox")[0].checked;
+		}
 	});
 	setup();
 

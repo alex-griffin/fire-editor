@@ -58,25 +58,54 @@
 					</div>
 				</div>
 				<div id="weapon">
-					<p>Weapon Exp (A = 90, B = 60,C = 35,D = 15, E = 0) don't go over 90</p>
+					<p>Weapon Exp (A = 90, B = 60, C = 35, D = 15, E = 0) don't go over 90</p>
 					<div id="exps">
-						<div id="exp"><span>Sword</span><input type="text" id="swordExp" maxlength="2"></div>
-						<div id="exp"><span>Spear</span><input type="text" id="spearExp" maxlength="2"></div>
-						<div id="exp"><span>Axe</span><input type="text" id="axeExp" maxlength="2"></div>
-						<div id="exp"><span>Bow</span><input type="text" id="bowExp" maxlength="2"></div>
-						<div id="exp"><span>Tomb</span><input type="text" id="tombExp" maxlength="2"></div>
-						<div id="exp"><span>Stave</span><input type="text" id="staveExp" maxlength="2"></div>
+						<div id="wExp"><span>Sword</span><input type="text" id="swordExp" maxlength="2"></div>
+						<div id="wExp"><span>Spear</span><input type="text" id="spearExp" maxlength="2"></div>
+						<div id="wExp"><span>Axe</span><input type="text" id="axeExp" maxlength="2"></div>
+						<div id="wExp"><span>Bow</span><input type="text" id="bowExp" maxlength="2"></div>
+						<div id="wExp"><span>Tomb</span><input type="text" id="tombExp" maxlength="2"></div>
+						<div id="wExp"><span>Stave</span><input type="text" id="staveExp" maxlength="2"></div>
 					</div>
 				</div>
 				<div id="class">
 					<p>Class</p>
-							<select id="classes" name="classes"></select>
+					<select id="classes" name="classes"></select>
 				</div>
 				<div id="hair">
 					<p>Hair Color (hex format, <b>MUST</b> be 6 chars long can include # but not necessary)</p>
 					<input maxlength="7" type="text" id="hairColor">
 				</div>
-
+				<!-- 	<div id="apperance">
+					<div id="style">
+						<span>Build</span>
+						<select name="" id="build">
+							<option value="00">00</option>
+							<option value="01">01</option>
+							<option value="02">02</option>
+						</select>
+					</div>
+					<div id="style">
+						<span>Face</span>
+						<select name="" id="face">
+							<option value="00">00</option>
+							<option value="01">01</option>
+							<option value="02">02</option>
+							<option value="03">03</option>
+							<option value="04">04</option>
+						</select>
+					</div>
+					<div id="style">
+						<span>Hair Type</span>
+						<select name="" id="hair">
+							<option value="00">00</option>
+							<option value="01">01</option>
+							<option value="02">02</option>
+							<option value="03">03</option>
+							<option value="04">04</option>
+						</select>
+					</div>
+				</div> -->
 				<div id="lvlExp">
 					<p>LVL/EXP/Boots</p>
 					<input type="text" maxlength="2" placeholder="LVL" id="lvl">
@@ -85,11 +114,9 @@
 				</div>
 				<div id="lSkills">
 					<p>Learned Skills</p>
-					<form action="">
-						<input name="skill" id="noChangeSkills" type="radio" checked>No Change<br>
-						<input name="skill" id="allSkills" type="radio">All Skills (even Lunitic+ skills)<br>
-						<input name="skill" id="allLSkills" type="radio">All Learnable Skills (except special dance)<br>
-						<input name="skill" id="NoSkills" type="radio">No skills<br>
+					<form id="lSkillsForm" action="">
+						<div><input id="godBox" type="checkbox">All checked <br></div>
+
 					</form>
 				</div>
 				<button id="updateUnit">Save Changes</button>

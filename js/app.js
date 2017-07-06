@@ -91,7 +91,7 @@ function Unit(str){
 		sword: null, spear: null, axe: null, bow: null, tomb: null, stave: null
 	}
 	this.avatarData = {
-		asset: null, flaw: null, gender: null, build: null, face: null, hair: null
+		asset: null, flaw: null, gender: null, build: null, face: null, hair: null, voice: null
 	}
 	this.name;
 	this.isAvatar = function(){
@@ -159,13 +159,12 @@ function Unit(str){
 		}
 		if(this.isDLC() || this.isAvatar()) {
 			var offset = this.characterStr.indexOf(values.FUCK) + values.FUCK.length + 38 + 48;
-			this.hairColor = "#" + this.characterStr.substr(offset + 8, 6);
-			//this.avatarData.build = this.characterStr.substr(offset + 2, 2);
-			//this.avatarData.hair = this.characterStr.substr(offset + 4, 2);
-			//this.avatarData.face = this.characterStr.substr(offset + 6, 2);
+			this.avatarData.build = this.characterStr.substr(offset + 2, 2);
+			this.avatarData.face = this.characterStr.substr(offset + 4, 2);
+			this.avatarData.hair = this.characterStr.substr(offset + 6, 2);
+			this.hairColor = "#" + this.characterStr.substr(offset - 68, 6);
+			this.avatarData.voice = this.characterStr.substr(offset + 16, 2);
 		}
-
-
 	}
 	this.loadValues = function(){
 		$("#current")[0].innerHTML = this.name;
@@ -197,21 +196,22 @@ function Unit(str){
 		$("#staveExp")[0].value = toDec(this.weaponExp.stave);
 
 		if(this.isAvatar() || this.isChild() || this.isDLC()){
-			$("#hair").show();
+			$("#hairC").show();
 			$("#hairColor")[0].value = this.hairColor;
 
 		} else {
-			$("#hair").hide();
+			$("#hairC").hide();
 		}
 
-		/*if(this.isAvatar() || this.isDLC()){
+		if(this.isAvatar() || this.isDLC()){
 			$("#apperance").show();
 			$("#build").val(this.avatarData.build);
 			$("#face").val(this.avatarData.face);
-			$("#hair").val(this.avatarData.hair);
+			$("#hairType").val(this.avatarData.hair);
+			$("#voice").val(this.avatarData.voice);
 		} else {
 			$("#apperance").hide();
-		}*/
+		}
 		var skillElements = document.getElementsByName('skill');
 		for(var i = 1; i < skills.length - 1; i++) {
 			if(this.lSkills.binR.substr(i, 1) == 1){
@@ -256,10 +256,7 @@ function Unit(str){
 		if(this.isChild()) {
 			this.replace(this.characterStr.substr(this.characterStr.indexOf(values.FUCK_START_YOUR_SOUL) + 90 + values.FUCK_START_YOUR_SOUL.length, $("#hairColor")[0].value.replace("#", "")));
 		}
-		if(this.isDLC() || this.isAvatar()) {
-			var offset = this.characterStr.indexOf(values.FUCK) + values.FUCK.length + 38 + 48;
-			this.replace(offset,  $("#hairColor")[0].value.replace("#", ""))
-		}
+
 
 		var newSkillBin = "0";
 		var skillElements = document.getElementsByName('skill');
@@ -272,9 +269,19 @@ function Unit(str){
 		}
 		newSkillBin += "0";
 		var newSkillHex = bToHex(this.lSkills.reverse(newSkillBin));
-		console.log(newSkillBin)
-		console.log(newSkillHex)
 		this.replace(this.characterStr.indexOf("ffff0000000002") + 32 + "ffff0000000002".length, newSkillHex);
+
+		if(this.isAvatar() || this.isDLC()){
+			var offset = this.characterStr.indexOf(values.FUCK) + values.FUCK.length + 38 + 48;
+			this.replace(offset + 2, $("#build").val());
+			this.replace(offset + 4, $("#face").val());
+			this.replace(offset + 6, $("#hairType").val());
+			this.replace(offset + 16, $("#voice").val());
+			this.replace(offset + 8, $("#hairColor")[0].value.replace("#", ""));
+			this.replace(offset - 68, $("#hairColor")[0].value.replace("#", ""))
+
+		}
+
 	}
 }
 
